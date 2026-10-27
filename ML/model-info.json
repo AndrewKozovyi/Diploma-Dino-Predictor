@@ -1,0 +1,40 @@
+{
+  "model": "model.onnx",
+  "sha256": "ce5c2fc295d4d181894eb78e568045e3ebc1e54cbb03659fca91241d864092d2",
+  "sourceWeights": "CNN/results_yolo/yolo_11_selected_9_classes-150-27/weights/best.pt",
+  "architecture": "YOLO11n-cls",
+  "exportedAt": "2026-10-27T21:11:34+00:00",
+  "ultralytics": "8.4.157",
+  "opset": 17,
+  "input": {
+    "name": "images",
+    "shape": [
+      1,
+      3,
+      224,
+      224
+    ],
+    "dtype": "float32",
+    "layout": "NCHW"
+  },
+  "output": {
+    "name": "output0",
+    "shape": [
+      1,
+      9
+    ],
+    "meaning": "softmax probabilities, index -> labels.json"
+  },
+  "preprocessing": [
+    "decode image, drop alpha channel without blending, RGB",
+    "resize (bilinear, antialiased): shortest side -> 224, longest -> floor(224 * long / short)",
+    "center crop 224x224, offset = round((side - 224) / 2)",
+    "scale pixels to [0, 1] (value / 255), no mean/std normalization",
+    "HWC -> CHW, add batch dimension"
+  ],
+  "verification": {
+    "images": 100,
+    "top1Agreement": 1.0,
+    "maxProbabilityDiff": 0.0
+  }
+}
