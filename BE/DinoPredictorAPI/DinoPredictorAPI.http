@@ -1,0 +1,5 @@
+@DinoPredictorAPI_HostAddress = http://localhost:5080
+
+GET {{DinoPredictorAPI_HostAddress}}/health
+
+###
