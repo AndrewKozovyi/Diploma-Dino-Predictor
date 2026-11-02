@@ -1,7 +1,7 @@
 using System.Globalization;
 using DinoPredictorAPI.Api;
-using DinoPredictorAPI.Interfaces;
 using DinoPredictorAPI.Infrastructure;
+using DinoPredictorAPI.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace DinoPredictorAPI.Application;
@@ -12,8 +12,8 @@ public sealed class PredictionsService(DinoPredictorDbContext db) : IPredictions
     {
         var culture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
 
-        return db.PredictHistoryResults
-            .AsNoTracking()
+        return db
+            .PredictHistoryResults.AsNoTracking()
             .Where(x => x.Rank == 1)
             .Select(PredictionMappings.ToSummary(culture))
             .OrderByDescending(p => p.CreatedAt)

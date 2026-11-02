@@ -6,10 +6,14 @@ namespace DinoPredictorAPI.Api;
 
 public sealed partial class GlobalExceptionHandler(
     IProblemDetailsService problemDetails,
-    ILogger<GlobalExceptionHandler> logger) : IExceptionHandler
+    ILogger<GlobalExceptionHandler> logger
+) : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(
-        HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
+        HttpContext httpContext,
+        Exception exception,
+        CancellationToken cancellationToken
+    )
     {
         var problem = exception switch
         {
@@ -32,12 +36,14 @@ public sealed partial class GlobalExceptionHandler(
         }
 
         httpContext.Response.StatusCode = problem.Status!.Value;
-        return await problemDetails.TryWriteAsync(new ProblemDetailsContext
-        {
-            HttpContext = httpContext,
-            Exception = exception,
-            ProblemDetails = problem,
-        });
+        return await problemDetails.TryWriteAsync(
+            new ProblemDetailsContext
+            {
+                HttpContext = httpContext,
+                Exception = exception,
+                ProblemDetails = problem,
+            }
+        );
     }
 
     [LoggerMessage(Level = LogLevel.Error, Message = "Unhandled exception on {Path}")]

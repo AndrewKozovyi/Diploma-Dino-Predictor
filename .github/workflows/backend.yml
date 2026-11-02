@@ -1,0 +1,38 @@
+name: Backend
+
+on:
+  push:
+    branches: [master]
+    paths: &paths
+      - "BE/**"
+      - "DB/**"
+      - "ML/**"
+      - "requirements-dev.txt"
+      - ".github/workflows/backend.yml"
+  pull_request:
+    paths: *paths
+
+jobs:
+  api:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: BE
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: BE/global.json
+      - run: dotnet tool restore
+      - run: dotnet csharpier check .
+      - run: dotnet build DinoPredictorAPI/DinoPredictorAPI.csproj
+
+  sql:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: pip install -r requirements-dev.txt
+      - run: sqlfluff lint DB

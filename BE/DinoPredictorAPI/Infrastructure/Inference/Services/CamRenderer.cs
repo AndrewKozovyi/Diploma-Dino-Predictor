@@ -54,15 +54,15 @@ public sealed class CamRenderer : ICamRenderer
         return float.Lerp(upper, lower, weightY);
     }
 
-    private static (float R, float G, float B) Jet(float value) => (
-        Math.Clamp(1.5f - Math.Abs((4f * value) - 3f), 0f, 1f),
-        Math.Clamp(1.5f - Math.Abs((4f * value) - 2f), 0f, 1f),
-        Math.Clamp(1.5f - Math.Abs((4f * value) - 1f), 0f, 1f));
+    private static (float R, float G, float B) Jet(float value) =>
+        (
+            Math.Clamp(1.5f - Math.Abs((4f * value) - 3f), 0f, 1f),
+            Math.Clamp(1.5f - Math.Abs((4f * value) - 2f), 0f, 1f),
+            Math.Clamp(1.5f - Math.Abs((4f * value) - 1f), 0f, 1f)
+        );
 
-    private static Rgb24 Blend(Rgb24 pixel, (float R, float G, float B) heat) => new(
-        Mix(pixel.R, heat.R),
-        Mix(pixel.G, heat.G),
-        Mix(pixel.B, heat.B));
+    private static Rgb24 Blend(Rgb24 pixel, (float R, float G, float B) heat) =>
+        new(Mix(pixel.R, heat.R), Mix(pixel.G, heat.G), Mix(pixel.B, heat.B));
 
     private static byte Mix(byte channel, float heat) =>
         (byte)Math.Round((channel * (1f - HeatOpacity)) + (heat * 255f * HeatOpacity));

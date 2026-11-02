@@ -8,13 +8,20 @@ public sealed class SafeEnableQueryAttribute : EnableQueryAttribute
 
     public SafeEnableQueryAttribute()
     {
-        AllowedQueryOptions = AllowedQueryOptions.Filter | AllowedQueryOptions.OrderBy
-            | AllowedQueryOptions.Top | AllowedQueryOptions.Skip;
+        AllowedQueryOptions =
+            AllowedQueryOptions.Filter
+            | AllowedQueryOptions.OrderBy
+            | AllowedQueryOptions.Top
+            | AllowedQueryOptions.Skip;
         AllowedFunctions = AllowedFunctions.None;
         AllowedArithmeticOperators = AllowedArithmeticOperators.None;
-        AllowedLogicalOperators = AllowedLogicalOperators.And | AllowedLogicalOperators.Equal
-            | AllowedLogicalOperators.GreaterThan | AllowedLogicalOperators.GreaterThanOrEqual
-            | AllowedLogicalOperators.LessThan | AllowedLogicalOperators.LessThanOrEqual;
+        AllowedLogicalOperators =
+            AllowedLogicalOperators.And
+            | AllowedLogicalOperators.Equal
+            | AllowedLogicalOperators.GreaterThan
+            | AllowedLogicalOperators.GreaterThanOrEqual
+            | AllowedLogicalOperators.LessThan
+            | AllowedLogicalOperators.LessThanOrEqual;
         MaxTop = MaxPageSize;
         PageSize = MaxPageSize;
         MaxNodeCount = 20;

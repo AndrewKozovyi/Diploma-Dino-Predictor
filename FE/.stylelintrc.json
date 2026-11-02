@@ -1,0 +1,18 @@
+{
+  "extends": "stylelint-config-standard-scss",
+  "rules": {
+    "no-empty-source": null,
+    "color-no-hex": true,
+    "color-named": "never",
+    "function-disallowed-list": ["rgb", "rgba", "hsl", "hsla"]
+  },
+  "overrides": [
+    {
+      "files": ["src/styles/_tokens.scss"],
+      "rules": {
+        "color-no-hex": null,
+        "function-disallowed-list": null
+      }
+    }
+  ]
+}

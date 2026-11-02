@@ -1,0 +1,29 @@
+name: Frontend
+
+on:
+  push:
+    branches: [master]
+    paths: &paths
+      - "FE/**"
+      - ".github/workflows/frontend.yml"
+  pull_request:
+    paths: *paths
+
+jobs:
+  app:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: FE
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: FE/package-lock.json
+      - run: npm ci
+      - run: npm run format:check
+      - run: npm run lint
+      - run: npm run lint:styles
+      - run: npm run build

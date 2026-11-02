@@ -11,7 +11,8 @@ public static class UploadExtensions
     {
         builder.Services.Configure<FormOptions>(form => form.MultipartBodyLengthLimit = UploadLimits.MaxFileSizeBytes);
         builder.WebHost.ConfigureKestrel(kestrel =>
-            kestrel.Limits.MaxRequestBodySize = UploadLimits.MaxFileSizeBytes + MultipartOverheadBytes);
+            kestrel.Limits.MaxRequestBodySize = UploadLimits.MaxFileSizeBytes + MultipartOverheadBytes
+        );
 
         return builder;
     }

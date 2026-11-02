@@ -1,7 +1,7 @@
-using DinoPredictorAPI.Interfaces;
 using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text.Json;
+using DinoPredictorAPI.Interfaces;
 using Microsoft.Extensions.Options;
 using Microsoft.ML.OnnxRuntime;
 using Microsoft.ML.OnnxRuntime.Tensors;
@@ -39,7 +39,8 @@ public sealed class DinoClassifier : IDinoClassifier, IDisposable
         if (_info.Input.Shape[^1] != ImagePreprocessor.InputSize)
         {
             throw new InvalidOperationException(
-                $"The model expects {_info.Input.Shape[^1]}px input, the preprocessor produces {ImagePreprocessor.InputSize}px.");
+                $"The model expects {_info.Input.Shape[^1]}px input, the preprocessor produces {ImagePreprocessor.InputSize}px."
+            );
         }
 
         _channels = _info.CamWeights.Shape[1];
@@ -65,14 +66,13 @@ public sealed class DinoClassifier : IDinoClassifier, IDisposable
 
         using var outputs = _session.Run(
             [NamedOnnxValue.CreateFromTensor(_info.Input.Name, tensor)],
-            [probabilitiesName, featuresName]);
+            [probabilitiesName, featuresName]
+        );
 
         var probabilities = outputs.First(o => o.Name == probabilitiesName).AsEnumerable<float>().ToArray();
         var features = outputs.First(o => o.Name == featuresName).AsTensor<float>().ToDenseTensor();
 
-        var ranked = Enumerable.Range(0, probabilities.Length)
-            .OrderByDescending(i => probabilities[i])
-            .ToArray();
+        var ranked = Enumerable.Range(0, probabilities.Length).OrderByDescending(i => probabilities[i]).ToArray();
 
         var candidates = ranked
             .Take(TopCandidates)

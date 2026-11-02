@@ -73,16 +73,18 @@ public sealed class ImagePreprocessor : IImagePreprocessor
     private static Image<Rgb24> CropForModel(Image<Rgb24> original)
     {
         var (width, height) = (original.Width, original.Height);
-        var (resizedWidth, resizedHeight) = width <= height
-            ? (InputSize, (int)((long)InputSize * height / width))
-            : ((int)((long)InputSize * width / height), InputSize);
+        var (resizedWidth, resizedHeight) =
+            width <= height
+                ? (InputSize, (int)((long)InputSize * height / width))
+                : ((int)((long)InputSize * width / height), InputSize);
 
         var left = (int)Math.Round((resizedWidth - InputSize) / 2.0);
         var top = (int)Math.Round((resizedHeight - InputSize) / 2.0);
 
-        return original.Clone(x => x
-            .Resize(resizedWidth, resizedHeight, KnownResamplers.Triangle)
-            .Crop(new Rectangle(left, top, InputSize, InputSize)));
+        return original.Clone(x =>
+            x.Resize(resizedWidth, resizedHeight, KnownResamplers.Triangle)
+                .Crop(new Rectangle(left, top, InputSize, InputSize))
+        );
     }
 
     private static DenseTensor<float> ToTensor(Image<Rgb24> modelView)

@@ -9,7 +9,10 @@ public static class PersistenceExtensions
     private const string ConnectionStringName = "Default";
 
     public static IServiceCollection AddPersistence(
-        this IServiceCollection services, IConfiguration configuration, IHostEnvironment environment)
+        this IServiceCollection services,
+        IConfiguration configuration,
+        IHostEnvironment environment
+    )
     {
         var connectionString = GetConnectionString(configuration);
 
@@ -43,6 +46,5 @@ public static class PersistenceExtensions
 
     private static string GetConnectionString(IConfiguration configuration) =>
         configuration.GetConnectionString(ConnectionStringName)
-        ?? throw new InvalidOperationException(
-            $"ConnectionStrings:{ConnectionStringName} is not configured.");
+        ?? throw new InvalidOperationException($"ConnectionStrings:{ConnectionStringName} is not configured.");
 }

@@ -1,0 +1,38 @@
+pre-commit:
+  parallel: true
+  jobs:
+    - name: csharpier
+      root: BE/
+      glob: "*.cs"
+      run: dotnet csharpier format {staged_files}
+      stage_fixed: true
+
+    - name: sqlfluff
+      root: DB/
+      glob: "*.sql"
+      run: ../.venv/Scripts/python -m sqlfluff lint {staged_files}
+      # Windows otherwise fails to read the Cyrillic seed data when the output is not a terminal
+      env:
+        PYTHONUTF8: "1"
+
+    - name: frontend
+      group:
+        piped: true
+        jobs:
+          - name: eslint
+            root: FE/
+            glob: "*.{ts,html}"
+            run: npx eslint --fix {staged_files}
+            stage_fixed: true
+
+          - name: stylelint
+            root: FE/
+            glob: "*.scss"
+            run: npx stylelint --fix {staged_files}
+            stage_fixed: true
+
+          - name: prettier
+            root: FE/
+            glob: "*.{ts,html,scss,json,js,md}"
+            run: npx prettier --write --ignore-unknown {staged_files}
+            stage_fixed: true

@@ -20,7 +20,8 @@ internal sealed class ModelLabelsValidator(IDinoClassifier classifier, IServiceS
         if (missing.Length > 0)
         {
             throw new InvalidOperationException(
-                $"Model labels are missing from DinoTypes: {string.Join(", ", missing)}.");
+                $"Model labels are missing from DinoTypes: {string.Join(", ", missing)}."
+            );
         }
     }
 

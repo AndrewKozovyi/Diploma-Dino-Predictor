@@ -17,9 +17,12 @@ internal static partial class DatabaseMigrator
             EnsureDatabase.For.SqlDatabase(connectionString);
         }
 
-        var result = DeployChanges.To
-            .SqlDatabase(connectionString)
-            .WithScriptsEmbeddedInAssembly(typeof(DatabaseMigrator).Assembly, name => name.EndsWith(".sql", StringComparison.OrdinalIgnoreCase))
+        var result = DeployChanges
+            .To.SqlDatabase(connectionString)
+            .WithScriptsEmbeddedInAssembly(
+                typeof(DatabaseMigrator).Assembly,
+                name => name.EndsWith(".sql", StringComparison.OrdinalIgnoreCase)
+            )
             .WithScriptNameComparer(new ScriptTimestampComparer())
             .LogToConsole()
             .Build()
@@ -27,7 +30,10 @@ internal static partial class DatabaseMigrator
 
         if (!result.Successful)
         {
-            throw new InvalidOperationException($"Database migration failed on script '{result.ErrorScript?.Name}'.", result.Error);
+            throw new InvalidOperationException(
+                $"Database migration failed on script '{result.ErrorScript?.Name}'.",
+                result.Error
+            );
         }
     }
 
@@ -47,10 +53,15 @@ internal static partial class DatabaseMigrator
             if (!match.Success)
             {
                 throw new InvalidOperationException(
-                    $"Script '{scriptName}' does not follow the naming convention DDP_dd_MM_yyyy_HH_mm_Description.sql.");
+                    $"Script '{scriptName}' does not follow the naming convention DDP_dd_MM_yyyy_HH_mm_Description.sql."
+                );
             }
 
-            return DateTime.ParseExact(match.Groups["timestamp"].Value, "dd_MM_yyyy_HH_mm", CultureInfo.InvariantCulture);
+            return DateTime.ParseExact(
+                match.Groups["timestamp"].Value,
+                "dd_MM_yyyy_HH_mm",
+                CultureInfo.InvariantCulture
+            );
         }
     }
 

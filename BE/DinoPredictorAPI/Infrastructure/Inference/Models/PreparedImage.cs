@@ -5,7 +5,8 @@ using SixLabors.ImageSharp.PixelFormats;
 
 namespace DinoPredictorAPI.Infrastructure;
 
-public sealed class PreparedImage(Image<Rgb24> original, Image<Rgb24> modelView, DenseTensor<float> tensor) : IDisposable
+public sealed class PreparedImage(Image<Rgb24> original, Image<Rgb24> modelView, DenseTensor<float> tensor)
+    : IDisposable
 {
     private static readonly JpegEncoder OriginalEncoder = new() { Quality = 90 };
 
