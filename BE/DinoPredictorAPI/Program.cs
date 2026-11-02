@@ -1,19 +1,27 @@
-using DinoPredictorAPI.Persistence;
-using Scalar.AspNetCore;
+using DinoPredictorAPI.Application;
+using DinoPredictorAPI.Extensions;
+using DinoPredictorAPI.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddUploadLimits();
+builder.Services.AddControllers().AddODataApi();
 builder.Services.AddOpenApi();
 builder.Services.AddPersistence(builder.Configuration, builder.Environment);
+builder.Services.AddInference();
+builder.Services.AddErrorHandling();
+builder.Services.AddScoped<IPredictionsService, PredictionsService>();
 
 var app = builder.Build();
 
+app.UseExceptionHandler();
+app.MapControllers();
 app.MigrateDatabase();
 
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.MapScalarApiReference();
+    app.UseSwaggerUI(options => options.SwaggerEndpoint("/openapi/v1.json", "DinoPredictorAPI"));
 }
 
 app.MapHealthChecks("/health");

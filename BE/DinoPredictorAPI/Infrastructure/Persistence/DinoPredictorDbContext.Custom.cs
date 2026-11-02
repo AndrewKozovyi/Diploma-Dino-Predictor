@@ -1,7 +1,6 @@
-using DinoPredictorAPI.Persistence.Converters;
 using Microsoft.EntityFrameworkCore;
 
-namespace DinoPredictorAPI.Persistence;
+namespace DinoPredictorAPI.Infrastructure;
 
 public partial class DinoPredictorDbContext
 {

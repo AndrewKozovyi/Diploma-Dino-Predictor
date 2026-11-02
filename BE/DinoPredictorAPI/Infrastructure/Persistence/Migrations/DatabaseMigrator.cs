@@ -2,7 +2,7 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using DbUp;
 
-namespace DinoPredictorAPI.Persistence;
+namespace DinoPredictorAPI.Infrastructure;
 
 /// <summary>
 /// Applies the SQL scripts from /DB (embedded into the assembly) with DbUp.

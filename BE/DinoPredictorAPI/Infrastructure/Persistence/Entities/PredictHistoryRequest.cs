@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
-namespace DinoPredictorAPI.Domain.Entities;
+namespace DinoPredictorAPI.Infrastructure;
 
 public partial class PredictHistoryRequest
 {

@@ -1,9 +1,9 @@
 {
   "model": "model.onnx",
-  "sha256": "ce5c2fc295d4d181894eb78e568045e3ebc1e54cbb03659fca91241d864092d2",
+  "sha256": "d6cce37f7de54adefb0bb2b164189111255d8800f90d209169394aa899f77217",
   "sourceWeights": "CNN/results_yolo/yolo_11_selected_9_classes-150-27/weights/best.pt",
   "architecture": "YOLO11n-cls",
-  "exportedAt": "2026-10-27T21:11:34+00:00",
+  "exportedAt": "2026-11-02T18:34:47+00:00",
   "ultralytics": "8.4.157",
   "opset": 17,
   "input": {
@@ -17,16 +17,44 @@
     "dtype": "float32",
     "layout": "NCHW"
   },
-  "output": {
-    "name": "output0",
-    "shape": [
-      1,
-      9
-    ],
-    "meaning": "softmax probabilities, index -> labels.json"
+  "outputs": {
+    "probabilities": {
+      "name": "output0",
+      "shape": [
+        1,
+        9
+      ],
+      "meaning": "softmax probabilities, index -> labels.json"
+    },
+    "features": {
+      "name": "features",
+      "shape": [
+        1,
+        1280,
+        7,
+        7
+      ],
+      "layout": "NCHW",
+      "meaning": "feature maps before global average pooling, used for CAM"
+    }
   },
+  "camWeights": {
+    "file": "cam-weights.bin",
+    "sha256": "8a2a1939461b5ab49af43817da7c203978525f972ec22c8255999852994c13ab",
+    "shape": [
+      9,
+      1280
+    ],
+    "dtype": "float32, little-endian",
+    "layout": "row-major: weights[cls * channels + channel]"
+  },
+  "cam": [
+    "cls = index of the highest probability",
+    "cam[i, j] = max(0, sum over channels k of weights[cls, k] * features[k, i, j])",
+    "divide by the maximum of cam (skip if the maximum is 0)"
+  ],
   "preprocessing": [
-    "decode image, drop alpha channel without blending, RGB",
+    "decode image, apply EXIF orientation, drop alpha channel without blending, RGB",
     "resize (bilinear, antialiased): shortest side -> 224, longest -> floor(224 * long / short)",
     "center crop 224x224, offset = round((side - 224) / 2)",
     "scale pixels to [0, 1] (value / 255), no mean/std normalization",
@@ -35,6 +63,13 @@
   "verification": {
     "images": 100,
     "top1Agreement": 1.0,
-    "maxProbabilityDiff": 0.0
+    "maxProbabilityDiff": 0.0,
+    "maxCamDiffVsGradCam": 1e-05,
+    "featuresShape": [
+      1,
+      1280,
+      7,
+      7
+    ]
   }
 }

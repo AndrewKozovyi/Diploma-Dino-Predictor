@@ -1,7 +1,8 @@
+using DinoPredictorAPI.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace DinoPredictorAPI.Persistence;
+namespace DinoPredictorAPI.Extensions;
 
 public static class PersistenceExtensions
 {

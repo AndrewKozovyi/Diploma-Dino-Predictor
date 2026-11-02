@@ -1,9 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using DinoPredictorAPI.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace DinoPredictorAPI.Persistence;
+namespace DinoPredictorAPI.Infrastructure;
 
 public partial class DinoPredictorDbContext : DbContext
 {

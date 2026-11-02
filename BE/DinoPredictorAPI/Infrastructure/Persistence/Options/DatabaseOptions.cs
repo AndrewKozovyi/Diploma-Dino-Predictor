@@ -1,4 +1,4 @@
-namespace DinoPredictorAPI.Persistence;
+namespace DinoPredictorAPI.Infrastructure;
 
 public sealed class DatabaseOptions
 {

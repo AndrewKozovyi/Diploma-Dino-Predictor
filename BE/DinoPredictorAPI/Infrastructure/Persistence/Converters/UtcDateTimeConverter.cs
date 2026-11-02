@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DinoPredictorAPI.Persistence.Converters;
+namespace DinoPredictorAPI.Infrastructure;
 
 internal sealed class UtcDateTimeConverter() : ValueConverter<DateTime, DateTime>(
     value => value,
