@@ -1,0 +1,56 @@
+:root {
+  color-scheme: light;
+
+  --color-bg: #f3f6f0;
+  --color-surface: #fff;
+  --color-border: #dbe3d3;
+  --color-border-strong: #9db595;
+  --color-track: #e7ebe2;
+
+  --color-text: #1c2419;
+  --color-text-muted: #5a6454;
+  --color-on-accent: #fff;
+
+  --color-accent: #2f7d3b;
+  --color-accent-strong: #27692f;
+  --color-accent-tint: #e3f1e2;
+
+  --color-info: #5f37b8;
+  --color-info-tint: #eee8fb;
+  --color-info-bar: #8a5fe0;
+
+  --color-success: #0a7a45;
+  --color-success-tint: #dcf7e6;
+  --color-success-bar: #1fb866;
+
+  --color-warning: #6f5600;
+  --color-warning-tint: #fdf3c4;
+  --color-warning-bar: #e6b800;
+
+  --color-danger: #b3261e;
+  --color-danger-tint: #fdeaea;
+  --color-danger-bar: #d9423a;
+
+  --font-display: 'Chakra Petch', 'Manrope', system-ui, sans-serif;
+  --font-body: 'Manrope', system-ui, sans-serif;
+
+  --font-size-sm: 0.8125rem;
+  --font-size-md: 0.9375rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.75rem;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-full: 999px;
+
+  --shadow-card: 0 1px 2px #1c241914;
+  --shadow-overlay: 0 12px 32px #1c241929;
+}

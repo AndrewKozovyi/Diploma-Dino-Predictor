@@ -23,6 +23,8 @@ jobs:
           cache: npm
           cache-dependency-path: FE/package-lock.json
       - run: npm ci
+      - run: cp src/environments/.env.example src/environments/.env
+      - run: npm run config
       - run: npm run format:check
       - run: npm run lint
       - run: npm run lint:styles

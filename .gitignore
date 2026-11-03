@@ -71,7 +71,7 @@ cmake-build-*/
 out/
 
 ### VS Code
-# VSCode settings (keep shared configuration)
+# VSCode settings
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json

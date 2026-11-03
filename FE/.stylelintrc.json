@@ -2,6 +2,8 @@
   "extends": "stylelint-config-standard-scss",
   "rules": {
     "no-empty-source": null,
+    "custom-property-empty-line-before": null,
+    "scss/dollar-variable-empty-line-before": null,
     "color-no-hex": true,
     "color-named": "never",
     "function-disallowed-list": ["rgb", "rgba", "hsl", "hsla"]

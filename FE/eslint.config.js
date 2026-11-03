@@ -22,7 +22,7 @@ const forbidImports = (files, layers) => ({
 
 module.exports = tseslint.config(
   {
-    ignores: ['dist/', '.angular/', 'coverage/'],
+    ignores: ['dist/', '.angular/', 'coverage/', 'src/environments/environment.ts'],
   },
   {
     files: ['**/*.ts'],
