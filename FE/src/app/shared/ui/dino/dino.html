@@ -1,0 +1,8 @@
+@if (crashed()) {
+  <app-icon name="dino-crashed" [size]="size()" />
+} @else {
+  <span class="frames" [class.running]="running()">
+    <app-icon class="frame" name="dino-run-1" [size]="size()" />
+    <app-icon class="frame frame-2" name="dino-run-2" [size]="size()" />
+  </span>
+}

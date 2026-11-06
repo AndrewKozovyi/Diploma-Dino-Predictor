@@ -1,0 +1,36 @@
+$frame: 120ms;
+
+:host {
+  display: inline-flex;
+  color: var(--color-accent);
+}
+
+.frames {
+  display: grid;
+}
+
+.frame {
+  grid-area: 1 / 1;
+}
+
+.frame-2 {
+  opacity: 0;
+}
+
+.running .frame {
+  animation: frame calc($frame * 2) steps(1) infinite;
+}
+
+.running .frame-2 {
+  animation-delay: calc($frame * -1);
+}
+
+@keyframes frame {
+  0% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}

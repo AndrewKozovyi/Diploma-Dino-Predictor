@@ -45,8 +45,9 @@ p {
   margin: 0;
 }
 
-a {
-  color: var(--color-accent);
+a:not([class]),
+.link {
+  @include mixins.link;
 }
 
 img,
@@ -69,6 +70,13 @@ textarea {
 
 .visually-hidden {
   @include mixins.visually-hidden;
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(var(--enter-offset, 0));
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

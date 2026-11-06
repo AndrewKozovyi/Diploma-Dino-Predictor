@@ -1,0 +1,54 @@
+<div class="field" (focusout)="close()">
+  <span [id]="id + '-label'">{{ label() }}</span>
+  <div class="select">
+    <button
+      #trigger
+      class="field-control select-trigger"
+      type="button"
+      role="combobox"
+      aria-haspopup="listbox"
+      [class.select-trigger-open]="isOpen()"
+      [attr.aria-controls]="id + '-panel'"
+      [attr.aria-expanded]="isOpen()"
+      [attr.aria-labelledby]="id + '-label'"
+      [attr.aria-activedescendant]="isOpen() ? id + '-option-' + activeIndex() : null"
+      (click)="toggle()"
+      (keydown)="onKeydown($event)"
+    >
+      <span [class.select-placeholder]="selectedLabel() === null">{{ selectedLabel() ?? placeholder() }}</span>
+      <app-icon class="select-chevron" name="chevron-down" [size]="18" />
+    </button>
+    @if (isOpen()) {
+      <div
+        #panel
+        class="select-panel"
+        role="listbox"
+        tabindex="-1"
+        [id]="id + '-panel'"
+        [class.select-panel-up]="opensUp()"
+        [attr.aria-labelledby]="id + '-label'"
+        (mousedown)="$event.preventDefault()"
+      >
+        @for (option of options(); track option.value; let index = $index) {
+          <button
+            class="select-option"
+            type="button"
+            role="option"
+            tabindex="-1"
+            [id]="id + '-option-' + index"
+            [class.select-option-active]="index === activeIndex()"
+            [class.select-option-selected]="option.value === value()"
+            [attr.aria-selected]="option.value === value()"
+            (click)="select(option)"
+            (mouseenter)="activeIndex.set(index)"
+          >
+            {{ option.label }}
+            @if (option.value === value()) {
+              <app-icon name="check" [size]="18" />
+            }
+          </button>
+        }
+      </div>
+    }
+  </div>
+</div>

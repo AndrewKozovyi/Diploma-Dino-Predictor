@@ -1,0 +1,149 @@
+<div class="ui-test">
+  <h1>UI test</h1>
+
+  <section class="card section">
+    <h2>Colors</h2>
+    <div class="swatches">
+      @for (color of colors; track color) {
+        <div class="swatch">
+          <span class="swatch-color" [style.background]="'var(--color-' + color + ')'"></span>
+          <code>{{ color }}</code>
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="card section">
+    <h2>Typography</h2>
+    <h1>First level heading, Tyrannosaurus</h1>
+    <h2>Second level heading</h2>
+    <h3>Third level heading</h3>
+    <p>Body text in Manrope. We identify a dinosaur genus from a photo of a fossil bone.</p>
+    <p class="hint">Secondary text for captions and dates.</p>
+    <p>A sentence with <a href="#top">a link inside it</a> to check how it reads.</p>
+  </section>
+
+  <section class="card section">
+    <h2>Buttons and badges</h2>
+    <div class="row">
+      <button class="btn btn-primary" type="button">Primary</button>
+      <button class="btn btn-secondary" type="button">Secondary</button>
+      <button class="btn btn-primary" type="button" disabled>Disabled</button>
+      <button class="btn btn-secondary" type="button">
+        <app-icon name="upload" [size]="18" />
+        With icon
+      </button>
+    </div>
+    <div class="row">
+      <span class="badge badge-info">Info</span>
+      <span class="badge badge-success">High confidence</span>
+      <span class="badge badge-warning">Medium confidence</span>
+      <span class="badge badge-danger">Model is unsure</span>
+    </div>
+  </section>
+
+  <section class="card section">
+    <h2>Fields</h2>
+    <div class="fields">
+      <div class="field">
+        <label for="ui-test-text">Text</label>
+        <input id="ui-test-text" type="text" placeholder="File name" />
+      </div>
+      <app-select label="Species" [options]="species" [(value)]="selectedSpecies" />
+      <app-date-input label="Date" [(value)]="selectedDate" />
+    </div>
+    <p class="hint">Species: {{ selectedSpecies() ?? 'none' }}. Date: {{ selectedDate() ?? 'none' }}.</p>
+  </section>
+
+  <section class="card section">
+    <h2>Sprite icons</h2>
+    <div class="row">
+      @for (icon of icons; track icon) {
+        <span class="icon-sample">
+          <app-icon [name]="icon" [size]="24" />
+          <code>{{ icon }}</code>
+        </span>
+      }
+    </div>
+  </section>
+
+  <section class="card section">
+    <h2>Loader</h2>
+    <app-dino-loader label="Analyzing the photo…" />
+  </section>
+
+  <section class="card section">
+    <h2>Notifications</h2>
+    <p class="hint">Hover a notification to pause its auto close.</p>
+    <div class="row">
+      <button class="btn btn-secondary" type="button" (click)="notifications.info('Upload a photo to start.')">
+        Info
+      </button>
+      <button class="btn btn-secondary" type="button" (click)="notifications.success('Photo analyzed.')">
+        Success
+      </button>
+      <button class="btn btn-secondary" type="button" (click)="notifications.warning('The model is unsure.')">
+        Warning
+      </button>
+      <button class="btn btn-secondary" type="button" (click)="notifications.error('Could not upload the photo.')">
+        Error
+      </button>
+    </div>
+  </section>
+
+  <section class="card section">
+    <h2>API request</h2>
+    <p class="hint">A real request through all interceptors: API address and errors.</p>
+    <div class="row">
+      <button class="btn btn-primary" type="button" [disabled]="apiLoading()" (click)="requestApi()">
+        GET predictions
+      </button>
+      <span>{{ apiResult() }}</span>
+    </div>
+    @if (apiLoading()) {
+      <app-dino-loader label="Waiting for the server…" />
+    }
+  </section>
+
+  <section class="card section">
+    <h2>Dialog</h2>
+    <div class="row">
+      <button class="btn btn-primary" type="button" (click)="dialogOpen.set(true)">Open</button>
+    </div>
+    <app-dialog heading="Tyrannosaurus" [(open)]="dialogOpen">
+      <p>Closes with the cross, Esc, or a click outside. Takes the full screen on mobile.</p>
+    </app-dialog>
+  </section>
+
+  <section class="card section">
+    <h2>Empty state</h2>
+    <app-empty-state
+      heading="No requests yet"
+      description="Upload your first photo and it will show up here."
+      icon="history"
+    >
+      <button class="btn btn-primary" type="button">Upload a photo</button>
+    </app-empty-state>
+  </section>
+
+  <section class="card section">
+    <h2>Pagination</h2>
+    <app-paginator [pageSize]="20" [totalCount]="400" [(page)]="page" />
+    <p class="hint">Current page: {{ page() }}</p>
+  </section>
+
+  <section class="card section">
+    <h2>File upload</h2>
+    <p class="hint">Pick a photo, then replace it with the button or by dragging another file onto it.</p>
+    <app-file-drop [(file)]="file" (fileRejected)="rejection.set($event)" />
+    <p class="hint">{{ fileResult() }}</p>
+  </section>
+
+  <section class="card section">
+    <h2>Error pages</h2>
+    <div class="row">
+      <a class="link" routerLink="/page-that-does-not-exist">Page not found</a>
+      <a class="link" routerLink="/ui-test/broken">Failed page load</a>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,31 @@
+.date-control {
+  position: relative;
+}
+
+.date-text {
+  padding-right: 2.75rem;
+
+  &[aria-invalid='true'] {
+    border-color: var(--color-danger);
+  }
+}
+
+.date-button {
+  position: absolute;
+  top: 50%;
+  right: var(--space-1);
+  transform: translateY(-50%);
+}
+
+.date-picker {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  accent-color: var(--color-accent);
+  opacity: 0;
+  pointer-events: none;
+}

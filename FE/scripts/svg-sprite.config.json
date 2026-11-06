@@ -1,0 +1,18 @@
+{
+  "dest": ".",
+  "shape": {
+    "transform": []
+  },
+  "mode": {
+    "stack": {
+      "dest": "public/icons",
+      "sprite": "sprite.svg",
+      "render": {
+        "scss": {
+          "template": "scripts/icons.scss.mustache",
+          "dest": "../../src/styles/_icons.scss"
+        }
+      }
+    }
+  }
+}

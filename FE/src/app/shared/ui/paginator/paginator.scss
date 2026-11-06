@@ -1,0 +1,24 @@
+.paginator {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.paginator-item {
+  min-width: 2.25rem;
+  min-height: 2.25rem;
+  padding: 0 var(--space-2);
+}
+
+.paginator-item-active,
+.paginator-item-active:hover:not(:disabled) {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.paginator-gap {
+  padding: 0 var(--space-1);
+  color: var(--color-text-muted);
+}

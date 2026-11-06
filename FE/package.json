@@ -4,13 +4,15 @@
   "scripts": {
     "ng": "ng",
     "config": "node scripts/set-env.mjs",
-    "prestart": "npm run config",
+    "icons": "svg-sprite --config scripts/svg-sprite.config.json \"src/assets/icons/*.svg\"",
+    "generate": "npm run config && npm run icons",
+    "prestart": "npm run generate",
     "start": "ng serve",
-    "prebuild": "npm run config",
+    "prebuild": "npm run generate",
     "build": "ng build",
-    "prewatch": "npm run config",
+    "prewatch": "npm run generate",
     "watch": "ng build --watch --configuration development",
-    "pretest": "npm run config",
+    "pretest": "npm run generate",
     "test": "ng test",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
@@ -26,6 +28,7 @@
     "@angular/forms": "^20.1.0",
     "@angular/platform-browser": "^20.1.0",
     "@angular/router": "^20.1.0",
+    "ngx-mask": "20.0.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },
@@ -47,6 +50,7 @@
     "prettier": "^3.9.10",
     "stylelint": "^17.16.0",
     "stylelint-config-standard-scss": "^17.0.0",
+    "svg-sprite": "2.0.4",
     "typescript": "~5.8.2",
     "typescript-eslint": "8.46.4"
   }

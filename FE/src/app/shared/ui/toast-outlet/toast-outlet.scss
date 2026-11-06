@@ -1,0 +1,89 @@
+@use 'sass:map';
+@use 'styles/mixins';
+@use 'styles/variables';
+
+.outlet {
+  position: fixed;
+  right: var(--space-4);
+  bottom: var(--space-4);
+  left: var(--space-4);
+  z-index: map.get(variables.$z-index, toast);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  pointer-events: none;
+
+  @include mixins.respond-to(sm) {
+    top: var(--space-4);
+    bottom: auto;
+    left: auto;
+    width: 22rem;
+  }
+}
+
+.toast {
+  --toast-color: var(--color-info);
+  --toast-tint: var(--color-info-tint);
+  --toast-bar: var(--color-info-bar);
+  --enter-offset: var(--space-2);
+
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--toast-tint);
+  box-shadow: var(--shadow-overlay);
+  color: var(--toast-color);
+  pointer-events: auto;
+  animation: enter variables.$duration-base ease-out;
+
+  &:hover .toast-progress,
+  &:focus-within .toast-progress {
+    animation-play-state: paused;
+  }
+}
+
+.toast-success {
+  --toast-color: var(--color-success);
+  --toast-tint: var(--color-success-tint);
+  --toast-bar: var(--color-success-bar);
+}
+
+.toast-warning {
+  --toast-color: var(--color-warning);
+  --toast-tint: var(--color-warning-tint);
+  --toast-bar: var(--color-warning-bar);
+}
+
+.toast-error {
+  --toast-color: var(--color-danger);
+  --toast-tint: var(--color-danger-tint);
+  --toast-bar: var(--color-danger-bar);
+}
+
+.toast-message {
+  flex: 1;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+}
+
+.toast-progress {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: var(--toast-bar);
+  transform-origin: left;
+  animation: toast-progress linear forwards;
+}
+
+@keyframes toast-progress {
+  to {
+    transform: scaleX(0);
+  }
+}

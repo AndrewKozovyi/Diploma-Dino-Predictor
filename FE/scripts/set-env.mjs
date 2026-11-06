@@ -27,7 +27,7 @@ const environment = {
   defaultCulture: readVariable('DEFAULT_CULTURE', ['uk', 'en']),
 };
 
-const source = `import type { AppEnvironment } from './environment.model';
+const source = `import type { AppEnvironment } from '../app/interfaces/core/app-environment';
 
 export const environment: AppEnvironment = ${JSON.stringify(environment, null, 2)};
 `;

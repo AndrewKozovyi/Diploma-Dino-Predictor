@@ -1,0 +1,120 @@
+@use 'styles/mixins';
+@use 'styles/variables';
+
+:host {
+  position: relative;
+  display: block;
+}
+
+.file-drop {
+  @include mixins.centered-column;
+
+  padding: var(--space-6) var(--space-4);
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  text-align: center;
+  cursor: pointer;
+
+  @include mixins.color-transition(background-color, border-color);
+
+  &:hover {
+    border-color: var(--color-accent);
+    background: var(--color-accent-tint);
+  }
+}
+
+input:focus-visible + .file-drop-area .file-drop {
+  @include mixins.focus-ring;
+}
+
+.file-drop-dragging {
+  .file-drop {
+    border-style: solid;
+    border-color: var(--color-accent);
+    background: var(--color-accent-tint);
+  }
+
+  .file-drop > *,
+  .preview-frame > * {
+    pointer-events: none;
+  }
+}
+
+.file-drop-disabled {
+  @include mixins.disabled;
+
+  &:hover {
+    border-color: var(--color-border-strong);
+    background: var(--color-surface);
+  }
+}
+
+.file-drop-icon {
+  color: var(--color-accent);
+}
+
+.file-drop-title {
+  font-weight: 600;
+}
+
+.preview {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  animation: enter variables.$duration-base ease-out;
+}
+
+.preview-frame {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  background: var(--color-bg);
+}
+
+.preview-image {
+  max-height: 22rem;
+  object-fit: contain;
+}
+
+.preview-replace {
+  @include mixins.centered-column;
+
+  position: absolute;
+  inset: 0;
+  justify-content: center;
+  background: var(--color-accent-tint);
+  font-weight: 600;
+  color: var(--color-accent-strong);
+}
+
+.preview-caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+
+.preview-info {
+  display: flex;
+  flex: 1 1 10rem;
+  flex-direction: column;
+  contain: inline-size;
+}
+
+.preview-name {
+  overflow: hidden;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.preview-actions {
+  display: flex;
+  gap: var(--space-2);
+}

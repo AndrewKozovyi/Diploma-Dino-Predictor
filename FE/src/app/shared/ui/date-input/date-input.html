@@ -1,0 +1,34 @@
+<div class="field">
+  <label [for]="id">{{ label() }}</label>
+  <div class="date-control">
+    <input
+      class="date-text"
+      type="text"
+      inputmode="numeric"
+      autocomplete="off"
+      placeholder="dd/mm/yyyy"
+      mask="d0/M0/0000"
+      [id]="id"
+      [dropSpecialCharacters]="false"
+      [attr.aria-invalid]="invalid()"
+      [ngModel]="text()"
+      (ngModelChange)="onTextChange($event)"
+      (blur)="onBlur()"
+    />
+    <button class="btn-icon date-button" type="button" aria-label="Open calendar" (click)="openPicker()">
+      <app-icon name="calendar" [size]="22" />
+    </button>
+    <input
+      #picker
+      class="date-picker"
+      type="date"
+      tabindex="-1"
+      aria-hidden="true"
+      [value]="value() ?? ''"
+      (change)="onPicked()"
+    />
+  </div>
+  @if (invalid()) {
+    <p class="error-text" role="alert">Enter a valid date.</p>
+  }
+</div>

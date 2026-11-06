@@ -1,0 +1,21 @@
+@use 'styles/mixins';
+
+.empty-state {
+  @include mixins.centered-column;
+
+  padding: var(--space-6) var(--space-4);
+  text-align: center;
+}
+
+.empty-state-icon {
+  display: inline-flex;
+  padding: var(--space-3);
+  border-radius: var(--radius-full);
+  background: var(--color-accent-tint);
+  color: var(--color-accent-strong);
+}
+
+.empty-state-description {
+  max-width: 28rem;
+  color: var(--color-text-muted);
+}

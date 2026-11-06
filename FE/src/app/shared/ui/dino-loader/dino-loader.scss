@@ -1,0 +1,41 @@
+@use 'styles/mixins';
+
+$dash: 40px;
+
+.loader {
+  @include mixins.centered-column;
+}
+
+.track {
+  @include mixins.centered-column(0);
+
+  width: 9rem;
+}
+
+.ground {
+  width: 100%;
+  height: 3px;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    display: block;
+    width: calc(100% + $dash);
+    height: 100%;
+    background-image: linear-gradient(
+      to right,
+      var(--color-border-strong) 0 22px,
+      transparent 22px 28px,
+      var(--color-border-strong) 28px 32px,
+      transparent 32px
+    );
+    background-size: $dash 100%;
+    animation: ground 480ms linear infinite;
+  }
+}
+
+@keyframes ground {
+  to {
+    transform: translateX(-$dash);
+  }
+}

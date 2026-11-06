@@ -1,0 +1,23 @@
+<div class="outlet" aria-live="polite">
+  @for (toast of notifications.notifications(); track toast.id) {
+    <div
+      class="toast toast-{{ toast.type }}"
+      (mouseenter)="notifications.pause(toast.id)"
+      (mouseleave)="notifications.resume(toast.id)"
+      (focusin)="notifications.pause(toast.id)"
+      (focusout)="notifications.resume(toast.id)"
+    >
+      <app-icon class="toast-icon" [name]="toast.type" />
+      <p class="toast-message">{{ toast.message }}</p>
+      <button
+        class="btn-icon btn-icon-inherit"
+        type="button"
+        aria-label="Close"
+        (click)="notifications.dismiss(toast.id)"
+      >
+        <app-icon name="close" [size]="16" />
+      </button>
+      <span class="toast-progress" [style.animation-duration.ms]="toast.durationMs"></span>
+    </div>
+  }
+</div>

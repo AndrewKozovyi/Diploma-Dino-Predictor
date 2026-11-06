@@ -1,0 +1,18 @@
+@use 'styles/mixins';
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.layout-main {
+  flex: 1;
+  padding-block: var(--space-5);
+
+  @include mixins.container;
+
+  @include mixins.respond-to(md) {
+    padding-block: var(--space-6);
+  }
+}

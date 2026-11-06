@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <title>Dino Predictor</title>
+  <defs>
+    <pattern id="stripes" width="6" height="6" patternUnits="userSpaceOnUse">
+      <rect width="6" height="3.6" fill="#fff" />
+    </pattern>
+    <mask id="scanned" maskUnits="userSpaceOnUse" x="0" y="0" width="120" height="120">
+      <rect width="120" height="120" fill="url(#stripes)" />
+      <rect y="46" width="120" height="74" fill="#fff" />
+    </mask>
+  </defs>
+
+  <path fill="#1c2419" mask="url(#scanned)" d="M42 72L42 46Q44 32 58 31L76 31Q88 32 88 44L88 52L64 55L64 72Z" />
+  <circle cx="76" cy="40" r="2.6" fill="#f3f6f0" />
+  <path
+    fill="#2f7d3b"
+    stroke="#2f7d3b"
+    stroke-width="2"
+    stroke-linejoin="round"
+    d="M24 70L32 62L40 70L48 60L56 68L64 58L72 68L80 60L88 68L96 62C97 66 97 69 97 72C97 94 80 106 60 106C40 106 23 94 23 72Z"
+  />
+  <g fill="#2f7d3b">
+    <path d="M14 46H106" stroke="#2f7d3b" stroke-width="3" stroke-linecap="round" />
+    <circle cx="14" cy="46" r="3.5" />
+    <circle cx="106" cy="46" r="3.5" />
+  </g>
+</svg>

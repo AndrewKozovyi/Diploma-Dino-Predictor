@@ -8,6 +8,8 @@
 
 # Generated from environment variables
 /src/environments/environment.ts
+/public/icons/sprite.svg
+/src/styles/_icons.scss
 
 # Node
 /node_modules

@@ -4,3 +4,4 @@ coverage/
 public/
 package-lock.json
 src/environments/environment.ts
+src/styles/_icons.scss

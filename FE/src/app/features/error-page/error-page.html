@@ -1,0 +1,14 @@
+<section class="error-page">
+  <app-dino [size]="110" [crashed]="true" />
+  <p class="error-code">{{ code() }}</p>
+  <h1>{{ content().heading }}</h1>
+  <p class="error-description">{{ content().description }}</p>
+  <div class="error-actions">
+    @if (code() === 500) {
+      <button class="btn btn-primary" type="button" (click)="reload()">Try again</button>
+      <a class="btn btn-secondary" routerLink="/">Back to home</a>
+    } @else {
+      <a class="btn btn-primary" routerLink="/">Back to home</a>
+    }
+  </div>
+</section>

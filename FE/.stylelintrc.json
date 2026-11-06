@@ -1,5 +1,6 @@
 {
   "extends": "stylelint-config-standard-scss",
+  "ignoreFiles": ["src/styles/_icons.scss"],
   "rules": {
     "no-empty-source": null,
     "custom-property-empty-line-before": null,

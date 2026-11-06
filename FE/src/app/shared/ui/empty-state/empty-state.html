@@ -1,0 +1,8 @@
+<div class="empty-state">
+  <span class="empty-state-icon"><app-icon [name]="icon()" [size]="28" /></span>
+  <h3>{{ heading() }}</h3>
+  @if (description(); as text) {
+    <p class="empty-state-description">{{ text }}</p>
+  }
+  <ng-content />
+</div>
