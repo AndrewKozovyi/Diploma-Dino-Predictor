@@ -24,7 +24,7 @@ const readVariable = (name, allowed) => {
 
 const environment = {
   apiUrl: readVariable('API_URL'),
-  defaultCulture: readVariable('DEFAULT_CULTURE', ['uk', 'en']),
+  defaultLanguage: readVariable('DEFAULT_LANGUAGE', ['uk', 'en']),
 };
 
 const source = `import type { AppEnvironment } from '../app/interfaces/core/app-environment';

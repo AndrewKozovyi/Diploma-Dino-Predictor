@@ -43,18 +43,29 @@ public sealed class ImagePreprocessor : IImagePreprocessor
         }
         catch (Exception exception) when (exception is ImageFormatException or NotSupportedException)
         {
-            throw new InvalidImageException("The file is not a supported image.", exception);
+            throw new InvalidImageException(
+                "invalidImage.unreadable",
+                "The file is not a supported image.",
+                innerException: exception
+            );
         }
 
         if (info.Metadata.DecodedImageFormat is not (JpegFormat or PngFormat or WebpFormat))
         {
-            throw new InvalidImageException("Only JPEG, PNG and WebP images are supported.");
+            throw new InvalidImageException(
+                "invalidImage.unsupportedFormat",
+                "Only JPEG, PNG and WebP images are supported."
+            );
         }
 
         const int maxDimension = UploadLimits.MaxImageDimension;
         if (info.Width > maxDimension || info.Height > maxDimension)
         {
-            throw new InvalidImageException($"The image must not be larger than {maxDimension}x{maxDimension} pixels.");
+            throw new InvalidImageException(
+                "invalidImage.tooLarge",
+                $"The image must not be larger than {maxDimension}x{maxDimension} pixels.",
+                new Dictionary<string, object> { ["max"] = maxDimension }
+            );
         }
     }
 

@@ -6,10 +6,11 @@ namespace DinoPredictorAPI.Infrastructure;
 public partial class DinoTypeTranslation
 {
     public byte DinoTypeId { get; set; }
-
-    public string Culture { get; set; } = null!;
+    
+    public byte LanguageId { get; set; }
 
     public string Name { get; set; } = null!;
 
+    public virtual Language Language { get; set; } = null!;
     public virtual DinoType DinoType { get; set; } = null!;
 }

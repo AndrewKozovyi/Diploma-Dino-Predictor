@@ -2,10 +2,13 @@
 @use 'styles/mixins';
 @use 'styles/variables';
 
-.header {
+:host {
   position: sticky;
   top: 0;
   z-index: map.get(variables.$z-index, header);
+}
+
+.header {
   border-bottom: 1px solid var(--color-border);
   background: var(--color-surface);
 }
@@ -22,6 +25,7 @@
 
 .brand {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   gap: var(--space-2);
   color: var(--color-text);
@@ -39,6 +43,16 @@
   }
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+
+  @include mixins.respond-to(sm) {
+    gap: var(--space-3);
+  }
+}
+
 .nav {
   display: flex;
   gap: var(--space-1);
@@ -48,15 +62,27 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-1);
-  padding: var(--space-2) var(--space-3);
+  padding: var(--space-2);
   border-radius: var(--radius-sm);
   font-weight: 600;
   color: var(--color-text-muted);
   text-decoration: none;
 
+  @include mixins.respond-to(sm) {
+    padding-inline: var(--space-3);
+  }
+
   &:hover {
     background: var(--color-accent-tint);
     color: var(--color-accent-strong);
+  }
+}
+
+.nav-link-icon {
+  display: none;
+
+  @include mixins.respond-to(xs) {
+    display: inline-block;
   }
 }
 

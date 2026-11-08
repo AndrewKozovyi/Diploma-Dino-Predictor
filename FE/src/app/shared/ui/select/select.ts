@@ -11,6 +11,7 @@ import {
   viewChild,
 } from '@angular/core';
 
+import { TranslatePipe } from '../../../core/i18n/translate.pipe';
 import type { SelectOption } from '../../../interfaces/shared/select-option';
 import { Icon } from '../icon/icon';
 
@@ -20,7 +21,7 @@ let nextId = 0;
 
 @Component({
   selector: 'app-select',
-  imports: [Icon],
+  imports: [Icon, TranslatePipe],
   templateUrl: './select.html',
   styleUrl: './select.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -28,7 +29,7 @@ let nextId = 0;
 export class Select<T> {
   readonly label = input.required<string>();
   readonly options = input.required<readonly SelectOption<T>[]>();
-  readonly placeholder = input('Select');
+  readonly placeholder = input<string>();
   readonly value = model<T | null>(null);
 
   private readonly trigger = viewChild.required<ElementRef<HTMLButtonElement>>('trigger');

@@ -1,4 +1,3 @@
-using System.Globalization;
 using DinoPredictorAPI.Api;
 using DinoPredictorAPI.Infrastructure;
 using DinoPredictorAPI.Interfaces;
@@ -6,16 +5,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DinoPredictorAPI.Application;
 
-public sealed class PredictionsService(DinoPredictorDbContext db) : IPredictionsService
+public sealed class PredictionsService(DinoPredictorDbContext db, IRequestLanguage language) : IPredictionsService
 {
     public IQueryable<PredictionSummaryDto> GetSummaries()
     {
-        var culture = CultureInfo.CurrentUICulture.TwoLetterISOLanguageName;
-
         return db
             .PredictHistoryResults.AsNoTracking()
             .Where(x => x.Rank == 1)
-            .Select(PredictionMappings.ToSummary(culture))
+            .Select(PredictionMappings.ToSummary(language.Code))
             .OrderByDescending(p => p.CreatedAt)
             .ThenByDescending(p => p.Id);
     }

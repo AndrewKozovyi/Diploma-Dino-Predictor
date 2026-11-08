@@ -9,7 +9,7 @@
   <div class="dialog-panel">
     <header class="dialog-header">
       <h2 id="dialog-title">{{ heading() }}</h2>
-      <button class="btn-icon" type="button" aria-label="Close" (click)="open.set(false)">
+      <button class="btn-icon" type="button" [attr.aria-label]="'common.close' | t" (click)="open.set(false)">
         <app-icon name="close" />
       </button>
     </header>

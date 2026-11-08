@@ -4,6 +4,7 @@ import {
   computed,
   effect,
   ElementRef,
+  inject,
   input,
   model,
   output,
@@ -11,6 +12,8 @@ import {
   viewChild,
 } from '@angular/core';
 
+import { I18nService } from '../../../core/i18n/i18n.service';
+import { TranslatePipe } from '../../../core/i18n/translate.pipe';
 import type { FileRejection } from '../../../interfaces/shared/file-rejection';
 import { Icon } from '../icon/icon';
 
@@ -21,7 +24,7 @@ let nextId = 0;
 
 @Component({
   selector: 'app-file-drop',
-  imports: [Icon],
+  imports: [Icon, TranslatePipe],
   templateUrl: './file-drop.html',
   styleUrl: './file-drop.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -34,6 +37,7 @@ export class FileDrop {
 
   readonly fileRejected = output<FileRejection>();
 
+  private readonly i18n = inject(I18nService);
   private readonly input = viewChild.required<ElementRef<HTMLInputElement>>('input');
 
   protected readonly id = `file-drop-${nextId++}`;
@@ -50,9 +54,13 @@ export class FileDrop {
   protected readonly fileSize = computed(() => {
     const size = this.file()?.size ?? 0;
 
-    return size < BYTES_IN_MEGABYTE
-      ? `${Math.round(size / BYTES_IN_KILOBYTE)} KB`
-      : `${(size / BYTES_IN_MEGABYTE).toFixed(1)} MB`;
+    if (size < BYTES_IN_MEGABYTE) {
+      return this.i18n.t('fileSize.kilobytes', { size: Math.round(size / BYTES_IN_KILOBYTE) });
+    }
+
+    const megabytes = new Intl.NumberFormat(this.i18n.language(), { maximumFractionDigits: 1 });
+
+    return this.i18n.t('fileSize.megabytes', { size: megabytes.format(size / BYTES_IN_MEGABYTE) });
   });
 
   constructor() {

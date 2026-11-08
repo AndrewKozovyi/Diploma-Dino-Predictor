@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component, computed, input, model } from '@angular/core';
 
+import { TranslatePipe } from '../../../core/i18n/translate.pipe';
 import { Icon } from '../icon/icon';
 
 const SIBLING_PAGES = 1;
 
 @Component({
   selector: 'app-paginator',
-  imports: [Icon],
+  imports: [Icon, TranslatePipe],
   templateUrl: './paginator.html',
   styleUrl: './paginator.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

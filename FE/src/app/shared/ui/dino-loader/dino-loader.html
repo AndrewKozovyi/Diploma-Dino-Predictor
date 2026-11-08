@@ -3,5 +3,5 @@
     <app-dino [running]="true" />
     <span class="ground"></span>
   </div>
-  <p class="hint">{{ label() }}</p>
+  <p class="hint">{{ label() ?? ('common.loading' | t) }}</p>
 </div>

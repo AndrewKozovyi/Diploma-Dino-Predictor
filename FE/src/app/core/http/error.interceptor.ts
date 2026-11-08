@@ -4,22 +4,22 @@ import { catchError, throwError } from 'rxjs';
 
 import type { ProblemDetails } from '../../interfaces/core/problem-details';
 import { APP_CONFIG } from '../config/app-config';
+import { I18nService } from '../i18n/i18n.service';
 import { NotificationService } from '../notifications/notification.service';
 
-const UNEXPECTED_ERROR = 'Something went wrong. Please try again.';
-
-const describeError = (error: unknown): string => {
-  if (error instanceof HttpErrorResponse) {
-    if (error.status === 0) {
-      return "Can't reach the server. Check your connection.";
-    }
-
-    const problem = error.error as ProblemDetails | null;
-
-    return problem?.detail ?? problem?.title ?? UNEXPECTED_ERROR;
+const describeError = (error: unknown, i18n: I18nService): string => {
+  if (!(error instanceof HttpErrorResponse)) {
+    return i18n.t('errors.unexpected');
   }
 
-  return UNEXPECTED_ERROR;
+  if (error.status === 0) {
+    return i18n.t('errors.network');
+  }
+
+  const problem = error.error as ProblemDetails | null;
+  const key = `errors.${problem?.code}`;
+
+  return problem?.code && i18n.has(key) ? i18n.t(key, problem.params) : i18n.t('errors.unexpected');
 };
 
 export const errorInterceptor: HttpInterceptorFn = (request, next) => {
@@ -28,10 +28,11 @@ export const errorInterceptor: HttpInterceptorFn = (request, next) => {
   }
 
   const notifications = inject(NotificationService);
+  const i18n = inject(I18nService);
 
   return next(request).pipe(
     catchError((error: unknown) => {
-      notifications.error(describeError(error));
+      notifications.error(describeError(error, i18n));
 
       return throwError(() => error);
     }),

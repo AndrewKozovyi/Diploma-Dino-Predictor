@@ -4,21 +4,24 @@
       <img src="logo-hatch-scan-animated.svg" alt="" width="40" height="40" />
       <span class="brand-name">Dino Predictor</span>
     </a>
-    <nav class="nav" aria-label="Main navigation">
-      <a
-        class="nav-link"
-        routerLink="/"
-        routerLinkActive="nav-link-active"
-        ariaCurrentWhenActive="page"
-        [routerLinkActiveOptions]="{ exact: true }"
-      >
-        <app-icon name="home" [size]="18" />
-        Home
-      </a>
-      <a class="nav-link" routerLink="/history" routerLinkActive="nav-link-active" ariaCurrentWhenActive="page">
-        <app-icon name="history" [size]="18" />
-        History
-      </a>
-    </nav>
+    <div class="header-actions">
+      <nav class="nav" [attr.aria-label]="'nav.label' | t">
+        <a
+          class="nav-link"
+          routerLink="/"
+          routerLinkActive="nav-link-active"
+          ariaCurrentWhenActive="page"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <app-icon class="nav-link-icon" name="home" [size]="18" />
+          {{ 'nav.home' | t }}
+        </a>
+        <a class="nav-link" routerLink="/history" routerLinkActive="nav-link-active" ariaCurrentWhenActive="page">
+          <app-icon class="nav-link-icon" name="history" [size]="18" />
+          {{ 'nav.history' | t }}
+        </a>
+      </nav>
+      <app-language-switcher />
+    </div>
   </div>
 </header>

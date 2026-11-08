@@ -12,13 +12,14 @@ import {
 import { FormsModule } from '@angular/forms';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
+import { TranslatePipe } from '../../../core/i18n/translate.pipe';
 import { Icon } from '../icon/icon';
 
-const DISPLAY_DATE = /^(\d{2})\.(\d{2})\.(\d{4})$/;
+const DISPLAY_DATE = /^(\d{2})\/(\d{2})\/(\d{4})$/;
 
 let nextId = 0;
 
-const toDisplay = (isoDate: string): string => isoDate.split('-').reverse().join('.');
+const toDisplay = (isoDate: string): string => isoDate.split('-').reverse().join('/');
 
 const toIso = (text: string): string | null => {
   const match = DISPLAY_DATE.exec(text);
@@ -35,7 +36,7 @@ const toIso = (text: string): string | null => {
 
 @Component({
   selector: 'app-date-input',
-  imports: [FormsModule, Icon, NgxMaskDirective],
+  imports: [FormsModule, Icon, NgxMaskDirective, TranslatePipe],
   providers: [provideNgxMask()],
   templateUrl: './date-input.html',
   styleUrl: './date-input.scss',

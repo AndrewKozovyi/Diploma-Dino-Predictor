@@ -10,10 +10,13 @@ builder.Services.AddOpenApi();
 builder.Services.AddPersistence(builder.Configuration, builder.Environment);
 builder.Services.AddInference();
 builder.Services.AddErrorHandling();
+builder.Services.AddRequestLanguages();
+builder.Services.AddFrontendCors(builder.Configuration);
 builder.Services.AddScoped<IPredictionsService, PredictionsService>();
 
 var app = builder.Build();
 
+app.UseCors();
 app.UseExceptionHandler();
 app.MapControllers();
 app.MigrateDatabase();

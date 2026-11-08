@@ -12,7 +12,7 @@
       <button
         class="btn-icon btn-icon-inherit"
         type="button"
-        aria-label="Close"
+        [attr.aria-label]="'common.close' | t"
         (click)="notifications.dismiss(toast.id)"
       >
         <app-icon name="close" [size]="16" />

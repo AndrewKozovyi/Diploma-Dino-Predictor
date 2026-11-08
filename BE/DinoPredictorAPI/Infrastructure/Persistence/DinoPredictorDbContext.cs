@@ -12,6 +12,7 @@ public partial class DinoPredictorDbContext : DbContext
     }
 
     public virtual DbSet<DinoType> DinoTypes { get; set; }
+    public virtual DbSet<Language> Languages { get; set; }
 
     public virtual DbSet<DinoTypeTranslation> DinoTypeTranslations { get; set; }
 
@@ -30,14 +31,26 @@ public partial class DinoPredictorDbContext : DbContext
                 .IsUnicode(false);
         });
 
-        modelBuilder.Entity<DinoTypeTranslation>(entity =>
+        modelBuilder.Entity<Language>(entity =>
         {
-            entity.HasKey(e => new { e.DinoTypeId, e.Culture });
+            entity.HasIndex(e => e.Code, "UQ_Languages_Code").IsUnique();
 
-            entity.Property(e => e.Culture)
+            entity.Property(e => e.Code)
                 .HasMaxLength(10)
                 .IsUnicode(false);
+            entity.Property(e => e.Name).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<DinoTypeTranslation>(entity =>
+        {
+            entity.HasKey(e => new { e.DinoTypeId, e.LanguageId });
+
             entity.Property(e => e.Name).HasMaxLength(100);
+
+            entity.HasOne(d => d.Language).WithMany(p => p.DinoTypeTranslations)
+                .HasForeignKey(d => d.LanguageId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK_DinoTypeTranslations_Languages");
 
             entity.HasOne(d => d.DinoType).WithMany(p => p.DinoTypeTranslations)
                 .HasForeignKey(d => d.DinoTypeId)

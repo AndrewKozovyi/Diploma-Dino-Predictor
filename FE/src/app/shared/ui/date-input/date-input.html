@@ -6,7 +6,7 @@
       type="text"
       inputmode="numeric"
       autocomplete="off"
-      placeholder="dd/mm/yyyy"
+      [placeholder]="'dateInput.placeholder' | t"
       mask="d0/M0/0000"
       [id]="id"
       [dropSpecialCharacters]="false"
@@ -15,7 +15,12 @@
       (ngModelChange)="onTextChange($event)"
       (blur)="onBlur()"
     />
-    <button class="btn-icon date-button" type="button" aria-label="Open calendar" (click)="openPicker()">
+    <button
+      class="btn-icon date-button"
+      type="button"
+      [attr.aria-label]="'dateInput.openCalendar' | t"
+      (click)="openPicker()"
+    >
       <app-icon name="calendar" [size]="22" />
     </button>
     <input
@@ -29,6 +34,6 @@
     />
   </div>
   @if (invalid()) {
-    <p class="error-text" role="alert">Enter a valid date.</p>
+    <p class="error-text" role="alert">{{ 'dateInput.invalid' | t }}</p>
   }
 </div>

@@ -17,8 +17,10 @@ import {
 import { environment } from '../environments/environment';
 import { routes } from './app.routes';
 import { APP_CONFIG } from './core/config/app-config';
+import { acceptLanguageInterceptor } from './core/http/accept-language.interceptor';
 import { apiUrlInterceptor } from './core/http/api-url.interceptor';
 import { errorInterceptor } from './core/http/error.interceptor';
+import { provideI18n } from './core/i18n/provide-i18n';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -32,7 +34,8 @@ export const appConfig: ApplicationConfig = {
         () => new RedirectCommand(inject(Router).parseUrl('/error'), { skipLocationChange: true }),
       ),
     ),
-    provideHttpClient(withFetch(), withInterceptors([apiUrlInterceptor, errorInterceptor])),
+    provideHttpClient(withFetch(), withInterceptors([apiUrlInterceptor, acceptLanguageInterceptor, errorInterceptor])),
     { provide: APP_CONFIG, useValue: environment },
+    provideI18n(),
   ],
 };

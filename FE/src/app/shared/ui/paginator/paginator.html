@@ -1,9 +1,9 @@
 @if (totalPages() > 1) {
-  <nav class="paginator" aria-label="Pagination">
+  <nav class="paginator" [attr.aria-label]="'paginator.label' | t">
     <button
       class="btn btn-secondary paginator-item"
       type="button"
-      aria-label="Previous page"
+      [attr.aria-label]="'paginator.previous' | t"
       [disabled]="page() === 1"
       (click)="page.set(page() - 1)"
     >
@@ -27,7 +27,7 @@
     <button
       class="btn btn-secondary paginator-item"
       type="button"
-      aria-label="Next page"
+      [attr.aria-label]="'paginator.next' | t"
       [disabled]="page() === totalPages()"
       (click)="page.set(page() + 1)"
     >

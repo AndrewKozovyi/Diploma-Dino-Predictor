@@ -1,0 +1,15 @@
+<button
+  class="switcher"
+  type="button"
+  [style.--active-index]="activeIndex()"
+  [title]="'language.switch' | t: { language: nextName() }"
+  [attr.aria-label]="'language.switch' | t: { language: nextName() }"
+  (click)="toggle()"
+>
+  <span class="switcher-thumb" aria-hidden="true"></span>
+  @for (language of languages; track language; let index = $index) {
+    <span class="switcher-option" aria-hidden="true" [class.switcher-option-active]="index === activeIndex()">
+      {{ language }}
+    </span>
+  }
+</button>

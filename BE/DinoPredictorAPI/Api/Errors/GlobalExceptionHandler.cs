@@ -17,16 +17,18 @@ public sealed partial class GlobalExceptionHandler(
     {
         var problem = exception switch
         {
-            InvalidImageException => new ProblemDetails
+            InvalidImageException invalidImage => new ProblemDetails
             {
                 Status = StatusCodes.Status400BadRequest,
                 Title = "Invalid image",
                 Detail = exception.Message,
+                Extensions = { ["code"] = invalidImage.Code, ["params"] = invalidImage.Parameters },
             },
             _ => new ProblemDetails
             {
                 Status = StatusCodes.Status500InternalServerError,
                 Title = "An unexpected error occurred",
+                Extensions = { ["code"] = "unexpected" },
             },
         };
 

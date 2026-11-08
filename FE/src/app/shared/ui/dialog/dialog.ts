@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, effect, ElementRef, input, model, viewChild } from '@angular/core';
 
+import { TranslatePipe } from '../../../core/i18n/translate.pipe';
 import { Icon } from '../icon/icon';
 
 @Component({
   selector: 'app-dialog',
-  imports: [Icon],
+  imports: [Icon, TranslatePipe],
   templateUrl: './dialog.html',
   styleUrl: './dialog.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
