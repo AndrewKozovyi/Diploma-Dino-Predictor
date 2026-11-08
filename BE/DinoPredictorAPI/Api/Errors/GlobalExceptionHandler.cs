@@ -23,6 +23,13 @@ public sealed partial class GlobalExceptionHandler(
                 Detail = exception.Message,
                 Extensions = { ["code"] = invalidImage.Code, ["params"] = invalidImage.Parameters },
             },
+            PredictionNotFoundException => new ProblemDetails
+            {
+                Status = StatusCodes.Status404NotFound,
+                Title = "Prediction not found",
+                Detail = exception.Message,
+                Extensions = { ["code"] = PredictionNotFoundException.Code },
+            },
             _ => new ProblemDetails
             {
                 Status = StatusCodes.Status500InternalServerError,

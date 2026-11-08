@@ -10,7 +10,13 @@ public sealed class PredictionsController(IPredictionsService predictions) : Con
     [SafeEnableQuery(AllowedOrderByProperties = "CreatedAt,Probability")]
     public IQueryable<PredictionSummaryDto> GetSummaries() => predictions.GetSummaries();
 
+    [HttpGet("{id:guid}")]
+    public Task<PredictionDetailsDto> GetById(Guid id, CancellationToken ct) => predictions.GetByIdAsync(id, ct);
+
     [HttpPost]
-    public async Task<ActionResult<PredictionDetailsDto>> Create(IFormFile image, CancellationToken ct) =>
-        Created((string?)null, await predictions.CreateAsync(image, ct));
+    public async Task<ActionResult<PredictionDetailsDto>> Create(IFormFile image, CancellationToken ct)
+    {
+        var details = await predictions.CreateAsync(image, ct);
+        return CreatedAtAction(nameof(GetById), new { id = details.Id }, details);
+    }
 }

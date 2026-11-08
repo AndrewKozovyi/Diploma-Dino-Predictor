@@ -8,6 +8,7 @@ builder.Services.AddInference();
 builder.Services.AddErrorHandling();
 builder.Services.AddRequestLanguages();
 builder.Services.AddFrontendCors(builder.Configuration);
+builder.Services.AddImageStorage();
 builder.Services.AddScoped<IPredictionsService, PredictionsService>();
 
 var app = builder.Build();

@@ -14,6 +14,7 @@
   "errors.invalidImage.unreadable": "The file is not a supported image.",
   "errors.invalidImage.unsupportedFormat": "Only JPEG, PNG and WebP images are supported.",
   "errors.network": "Can't reach the server. Check your connection.",
+  "errors.prediction.notFound": "This prediction was not found.",
   "errors.unexpected": "Something went wrong. Please try again.",
   "fileDrop.change": "Change photo",
   "fileDrop.dropToReplace": "Drop to replace",

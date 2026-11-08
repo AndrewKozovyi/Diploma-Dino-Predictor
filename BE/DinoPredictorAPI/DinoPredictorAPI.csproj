@@ -8,6 +8,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
     <TreatWarningsAsErrors Condition="'$(CI)' == 'true'">true</TreatWarningsAsErrors>
+    <UserSecretsId>502cc2d7-024c-4c12-a67f-60cdc8c73f77</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -41,11 +42,6 @@
       CopyToOutputDirectory="PreserveNewest"
       CopyToPublishDirectory="PreserveNewest"
     />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Infrastructure\Storage\" />
-    <Folder Include="Interfaces\Storage\" />
   </ItemGroup>
 
   <ItemGroup>

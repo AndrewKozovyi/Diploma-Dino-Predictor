@@ -14,6 +14,7 @@
   "errors.invalidImage.unreadable": "Файл не є підтримуваним зображенням.",
   "errors.invalidImage.unsupportedFormat": "Підтримуються лише зображення JPEG, PNG і WebP.",
   "errors.network": "Не вдається з'єднатися із сервером. Перевірте підключення.",
+  "errors.prediction.notFound": "Такого передбачення не знайдено.",
   "errors.unexpected": "Щось пішло не так. Спробуйте ще раз.",
   "fileDrop.change": "Змінити фото",
   "fileDrop.dropToReplace": "Відпустіть, щоб замінити",
