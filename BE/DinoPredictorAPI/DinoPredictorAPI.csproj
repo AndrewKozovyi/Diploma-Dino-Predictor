@@ -47,4 +47,13 @@
     <Folder Include="Infrastructure\Storage\" />
     <Folder Include="Interfaces\Storage\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="DinoPredictorAPI.Api" />
+    <Using Include="DinoPredictorAPI.Application" />
+    <Using Include="DinoPredictorAPI.Extensions" />
+    <Using Include="DinoPredictorAPI.Infrastructure" />
+    <Using Include="DinoPredictorAPI.Interfaces" />
+    <Using Include="Microsoft.EntityFrameworkCore" />
+  </ItemGroup>
 </Project>

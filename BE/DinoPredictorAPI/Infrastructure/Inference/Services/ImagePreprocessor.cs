@@ -1,4 +1,3 @@
-using DinoPredictorAPI.Interfaces;
 using Microsoft.ML.OnnxRuntime.Tensors;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Jpeg;

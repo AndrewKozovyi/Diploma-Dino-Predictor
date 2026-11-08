@@ -1,5 +1,3 @@
-using DinoPredictorAPI.Api;
-
 namespace DinoPredictorAPI.Extensions;
 
 public static class ErrorHandlingExtensions

@@ -1,6 +1,3 @@
-using DinoPredictorAPI.Interfaces;
-using Microsoft.EntityFrameworkCore;
-
 namespace DinoPredictorAPI.Infrastructure;
 
 /// <summary>

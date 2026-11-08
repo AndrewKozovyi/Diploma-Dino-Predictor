@@ -1,6 +1,3 @@
-using DinoPredictorAPI.Infrastructure;
-using DinoPredictorAPI.Interfaces;
-
 namespace DinoPredictorAPI.Extensions;
 
 public static class LocalizationExtensions

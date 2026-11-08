@@ -1,4 +1,3 @@
-using DinoPredictorAPI.Infrastructure;
 using Microsoft.ML.OnnxRuntime.Tensors;
 
 namespace DinoPredictorAPI.Interfaces;

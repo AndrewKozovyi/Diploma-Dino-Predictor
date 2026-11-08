@@ -1,5 +1,3 @@
-using DinoPredictorAPI.Infrastructure;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace DinoPredictorAPI.Extensions;

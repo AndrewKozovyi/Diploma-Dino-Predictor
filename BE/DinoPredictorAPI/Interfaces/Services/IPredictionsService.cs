@@ -1,5 +1,3 @@
-using DinoPredictorAPI.Api;
-
 namespace DinoPredictorAPI.Interfaces;
 
 public interface IPredictionsService

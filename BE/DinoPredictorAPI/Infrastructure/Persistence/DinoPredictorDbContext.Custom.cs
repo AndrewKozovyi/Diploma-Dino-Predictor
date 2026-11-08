@@ -1,5 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-
 namespace DinoPredictorAPI.Infrastructure;
 
 public partial class DinoPredictorDbContext

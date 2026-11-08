@@ -1,5 +1,3 @@
-using DinoPredictorAPI.Interfaces;
-
 namespace DinoPredictorAPI.Infrastructure;
 
 public sealed class RequestLanguage(IHttpContextAccessor httpContextAccessor) : IRequestLanguage

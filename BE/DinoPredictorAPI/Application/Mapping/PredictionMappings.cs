@@ -1,6 +1,4 @@
 using System.Linq.Expressions;
-using DinoPredictorAPI.Api;
-using DinoPredictorAPI.Infrastructure;
 
 namespace DinoPredictorAPI.Application;
 

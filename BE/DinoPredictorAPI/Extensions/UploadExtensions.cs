@@ -1,4 +1,3 @@
-using DinoPredictorAPI.Infrastructure;
 using Microsoft.AspNetCore.Http.Features;
 
 namespace DinoPredictorAPI.Extensions;

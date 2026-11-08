@@ -1,8 +1,3 @@
-using DinoPredictorAPI.Api;
-using DinoPredictorAPI.Infrastructure;
-using DinoPredictorAPI.Interfaces;
-using Microsoft.EntityFrameworkCore;
-
 namespace DinoPredictorAPI.Application;
 
 public sealed class PredictionsService(DinoPredictorDbContext db, IRequestLanguage language) : IPredictionsService

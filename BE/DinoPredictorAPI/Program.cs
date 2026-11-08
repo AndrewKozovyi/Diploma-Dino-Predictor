@@ -1,7 +1,3 @@
-using DinoPredictorAPI.Application;
-using DinoPredictorAPI.Extensions;
-using DinoPredictorAPI.Interfaces;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddUploadLimits();

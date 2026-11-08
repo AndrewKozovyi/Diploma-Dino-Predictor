@@ -1,4 +1,3 @@
-using DinoPredictorAPI.Api;
 using Microsoft.AspNetCore.OData;
 
 namespace DinoPredictorAPI.Extensions;

@@ -1,4 +1,3 @@
-using DinoPredictorAPI.Api;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DinoPredictorAPI.Interfaces;
