@@ -1,1 +1,45 @@
-<h1>{{ 'home.heading' | t }}</h1>
+<section class="hero">
+  <div class="hero-text">
+    <h1 class="hero-title">{{ 'home.hero.title' | t }}</h1>
+    <p class="hero-lead">{{ 'home.hero.lead' | t }}</p>
+    <button class="btn btn-primary hero-start" type="button" (click)="upload.scrollIntoView()">
+      {{ 'home.hero.start' | t }}
+    </button>
+  </div>
+  <div class="hero-art" aria-hidden="true">
+    <img src="logo-hatch-scan-animated.svg" alt="" width="240" height="240" />
+  </div>
+</section>
+
+<app-home-steps />
+
+<app-home-upload #upload (predicted)="recent.reload()" />
+
+<section class="recent" aria-labelledby="recent-title">
+  <h2 id="recent-title">{{ 'home.recent.title' | t }}</h2>
+
+  <app-data-grid
+    [rows]="recentItems()"
+    [columns]="recentGrid.columns"
+    [card]="recentGrid.card"
+    [trackBy]="trackById"
+    [minRows]="recentCount"
+    [label]="'home.recent.title' | t"
+  >
+    @if (recent.isLoading()) {
+      <app-dino-loader />
+    } @else if (recent.error()) {
+      <app-empty-state icon="error" [heading]="'home.recent.error' | t">
+        <button class="btn btn-secondary" type="button" (click)="recent.reload()">
+          {{ 'home.recent.retry' | t }}
+        </button>
+      </app-empty-state>
+    } @else {
+      <app-empty-state
+        icon="image"
+        [heading]="'home.recent.empty.heading' | t"
+        [description]="'home.recent.empty.description' | t"
+      />
+    }
+  </app-data-grid>
+</section>

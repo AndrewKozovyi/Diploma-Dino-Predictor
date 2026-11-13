@@ -1,0 +1,35 @@
+<section class="upload" aria-labelledby="upload-title">
+  <header class="upload-head">
+    <h2 id="upload-title">{{ 'home.upload.title' | t }}</h2>
+    <p class="hint">{{ 'home.upload.description' | t }}</p>
+  </header>
+
+  @if (result(); as prediction) {
+    <article class="card result">
+      <app-prediction-images
+        class="reveal"
+        style="--order: 0"
+        [imageUrl]="prediction.imageUrl"
+        [camImageUrl]="prediction.camImageUrl"
+      />
+      <app-prediction-overview class="reveal" style="--order: 1" [candidates]="prediction.candidates" />
+      <footer class="result-footer reveal" style="--order: 2">
+        <app-prediction-meta [prediction]="prediction" />
+        <button class="btn btn-secondary result-action" type="button" (click)="reset()">
+          <app-icon name="upload" [size]="18" />
+          {{ 'home.upload.again' | t }}
+        </button>
+      </footer>
+    </article>
+  } @else if (analyzing()) {
+    <div class="card analyzing">
+      <app-dino-loader [label]="'home.upload.analyzing' | t" />
+    </div>
+  } @else {
+    <app-file-drop [(file)]="file">
+      <button class="btn btn-primary predict-button" type="button" (click)="predict()">
+        {{ 'home.upload.predict' | t }}
+      </button>
+    </app-file-drop>
+  }
+</section>

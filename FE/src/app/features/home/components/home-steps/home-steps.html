@@ -1,0 +1,11 @@
+<ol class="steps" [attr.aria-label]="'home.steps.label' | t">
+  @for (step of steps; track step; let index = $index) {
+    <li class="card step">
+      <span class="step-number">{{ index + 1 }}</span>
+      <div>
+        <h2 class="step-title">{{ 'home.steps.' + step + '.title' | t }}</h2>
+        <p class="hint">{{ 'home.steps.' + step + '.text' | t }}</p>
+      </div>
+    </li>
+  }
+</ol>

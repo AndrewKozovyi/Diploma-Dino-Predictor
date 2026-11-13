@@ -1,16 +1,20 @@
 @use 'styles/mixins';
 
-$option-width: 2.5rem;
 $padding: 3px;
+$duration: 250ms;
+
+:host {
+  display: inline-flex;
+}
 
 .switcher {
   position: relative;
-  display: inline-flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   padding: $padding;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-sm);
   background: var(--color-bg);
-  font: inherit;
   cursor: pointer;
 
   @include mixins.color-transition(border-color);
@@ -18,37 +22,40 @@ $padding: 3px;
   &:hover {
     border-color: var(--color-border-strong);
   }
-
-  &:focus-visible {
-    @include mixins.focus-ring;
-  }
 }
 
-.switcher-thumb {
+.thumb {
   position: absolute;
   inset-block: $padding;
   left: $padding;
-  width: $option-width;
+  width: calc(50% - #{$padding});
   border-radius: calc(var(--radius-sm) - #{$padding});
   background: var(--color-accent);
   box-shadow: var(--shadow-card);
   transform: translateX(calc(var(--active-index, 0) * 100%));
-  transition: transform 250ms ease-in-out;
+  transition: transform $duration ease-in-out;
 }
 
-.switcher-option {
+.option {
   position: relative;
-  width: $option-width;
-  padding-block: var(--space-1);
+  min-width: 2.5rem;
+  padding: var(--space-1) var(--space-3);
+  border: 0;
+  border-radius: calc(var(--radius-sm) - #{$padding});
+  background: transparent;
   font-size: var(--font-size-sm);
   font-weight: 700;
   line-height: 1.5;
   color: var(--color-text-muted);
-  text-align: center;
-  text-transform: uppercase;
-  transition: color 250ms ease-in-out;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color $duration ease-in-out;
+
+  &:hover:not(.option-active) {
+    color: var(--color-text);
+  }
 }
 
-.switcher-option-active {
-  color: var(--color-surface);
+.option-active {
+  color: var(--color-on-accent);
 }

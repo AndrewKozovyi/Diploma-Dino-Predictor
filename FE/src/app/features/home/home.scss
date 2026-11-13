@@ -1,0 +1,61 @@
+@use 'styles/mixins';
+@use 'styles/variables';
+
+:host {
+  display: grid;
+  gap: var(--space-7);
+}
+
+.hero {
+  display: grid;
+  align-items: center;
+  gap: var(--space-6);
+  padding-block: var(--space-4);
+
+  @include mixins.respond-to(md) {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    padding-block: var(--space-6);
+  }
+}
+
+.hero-text {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-4);
+  animation: enter variables.$duration-slow ease-out both;
+}
+
+.hero-title {
+  max-width: 18ch;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  line-height: 1.1;
+}
+
+.hero-lead {
+  max-width: 38rem;
+  font-size: 1.0625rem;
+  color: var(--color-text-muted);
+}
+
+.hero-start {
+  min-height: 3rem;
+  margin-top: var(--space-2);
+  padding-inline: var(--space-5);
+}
+
+.hero-art {
+  display: none;
+
+  @include mixins.respond-to(md) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+    background: radial-gradient(circle, var(--color-accent-tint) 0 55%, transparent 70%);
+  }
+}
+
+.recent {
+  display: grid;
+  gap: var(--space-4);
+}

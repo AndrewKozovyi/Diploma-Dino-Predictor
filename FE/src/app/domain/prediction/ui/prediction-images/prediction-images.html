@@ -1,0 +1,22 @@
+<div class="frame">
+  <img
+    class="frame-image"
+    [class.frame-image-hidden]="view() !== 'photo'"
+    [src]="imageUrl()"
+    [alt]="'prediction.photo' | t"
+  />
+  @if (camImageUrl(); as camUrl) {
+    <img
+      class="frame-image"
+      [class.frame-image-hidden]="view() !== 'cam'"
+      [src]="camUrl"
+      [alt]="'prediction.cam' | t"
+    />
+  }
+</div>
+@if (camImageUrl()) {
+  <app-switcher [options]="views()" [(value)]="view" [label]="'prediction.view.label' | t" />
+  @if (view() === 'cam') {
+    <p class="hint">{{ 'prediction.camHint' | t }}</p>
+  }
+}

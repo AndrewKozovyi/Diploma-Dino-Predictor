@@ -1,0 +1,14 @@
+@if (showValue()) {
+  <span class="value">{{ value() | localPercent }}</span>
+}
+<span
+  class="track"
+  role="meter"
+  aria-valuemin="0"
+  aria-valuemax="1"
+  [attr.aria-valuenow]="value()"
+  [attr.aria-valuetext]="value() | localPercent"
+  [attr.aria-label]="'prediction.confidence' | t"
+>
+  <span class="bar" [style.width.%]="value() * 100"></span>
+</span>

@@ -1,0 +1,20 @@
+<dl class="meta">
+  <div>
+    <dt>{{ 'prediction.file' | t }}</dt>
+    <dd class="file">{{ prediction().originalFileName }}</dd>
+  </div>
+  <div>
+    <dt>{{ 'prediction.analyzedAt' | t }}</dt>
+    <dd>
+      <time [attr.datetime]="prediction().createdAt">{{ prediction().createdAt | localDate }}</time>
+    </dd>
+  </div>
+  <div>
+    <dt>{{ 'prediction.processing' | t }}</dt>
+    <dd>{{ 'prediction.processingMs' | t: { ms: prediction().processingMs } }}</dd>
+  </div>
+  <div>
+    <dt>{{ 'prediction.model' | t }}</dt>
+    <dd>{{ prediction().modelVersion }}</dd>
+  </div>
+</dl>

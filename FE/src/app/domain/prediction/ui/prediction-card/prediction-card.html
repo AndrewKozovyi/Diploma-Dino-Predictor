@@ -1,0 +1,8 @@
+<article class="card prediction-card">
+  <div class="head">
+    <h3 class="name">{{ prediction().dinoType.name }}</h3>
+    <time class="hint" [attr.datetime]="prediction().createdAt">{{ prediction().createdAt | localDate }}</time>
+  </div>
+  <app-confidence-meter [value]="prediction().probability" />
+  <p class="hint file">{{ prediction().originalFileName }}</p>
+</article>

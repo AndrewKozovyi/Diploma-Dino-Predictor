@@ -1,0 +1,40 @@
+@use 'styles/variables';
+
+:host {
+  --bar-color: var(--color-success-bar);
+
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+:host(.medium) {
+  --bar-color: var(--color-warning-bar);
+}
+
+:host(.low) {
+  --bar-color: var(--color-danger-bar);
+}
+
+.value {
+  min-width: 3.25rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.track {
+  flex: 1;
+  height: 0.5rem;
+  overflow: hidden;
+  border-radius: var(--radius-full);
+  background: var(--color-track);
+}
+
+.bar {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--bar-color);
+  transition: width variables.$duration-slow ease-out;
+}

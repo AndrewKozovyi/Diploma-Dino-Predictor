@@ -1,0 +1,63 @@
+<ng-template #placeholder><ng-content /></ng-template>
+
+<ng-template #cellContent let-cell>
+  @if (cell.component) {
+    <ng-container *ngComponentOutlet="cell.component; inputs: cell.inputs" />
+  } @else {
+    <span [class]="'cell-text cell-' + (cell.style ?? 'plain')">{{ cell.text }}</span>
+  }
+</ng-template>
+
+@if (cards()) {
+  @if (table().length > 0) {
+    <ul class="cards" [attr.aria-label]="label()">
+      @for (row of table(); track row.key) {
+        <li>
+          @if (row.card; as card) {
+            <ng-container *ngTemplateOutlet="cellContent; context: { $implicit: card }" />
+          } @else {
+            <dl class="card default-card">
+              @for (cell of row.cells; track $index; let index = $index) {
+                <div>
+                  <dt class="hint">{{ columns()[index].headerKey | t }}</dt>
+                  <dd><ng-container *ngTemplateOutlet="cellContent; context: { $implicit: cell }" /></dd>
+                </div>
+              }
+            </dl>
+          }
+        </li>
+      }
+    </ul>
+  } @else {
+    <div class="card cards-placeholder"><ng-container *ngTemplateOutlet="placeholder" /></div>
+  }
+} @else {
+  <div
+    class="grid"
+    role="table"
+    [attr.aria-label]="label()"
+    [style.grid-template-columns]="tracks()"
+    [style.--min-rows]="minRows()"
+  >
+    <div class="grid-row grid-head" role="row">
+      @for (column of columns(); track $index) {
+        <span class="grid-cell" role="columnheader">{{ column.headerKey | t }}</span>
+      }
+    </div>
+    @for (row of table(); track row.key) {
+      <div class="grid-row" role="row">
+        @for (cell of row.cells; track $index) {
+          <div class="grid-cell" role="cell">
+            <ng-container *ngTemplateOutlet="cellContent; context: { $implicit: cell }" />
+          </div>
+        }
+      </div>
+    } @empty {
+      <div class="grid-row grid-placeholder" role="row">
+        <div class="grid-placeholder-cell" role="cell">
+          <ng-container *ngTemplateOutlet="placeholder" />
+        </div>
+      </div>
+    }
+  </div>
+}

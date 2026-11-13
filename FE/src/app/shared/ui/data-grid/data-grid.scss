@@ -1,0 +1,92 @@
+:host {
+  --grid-head-height: 2.75rem;
+  --grid-row-height: 3.25rem;
+
+  display: block;
+}
+
+.grid {
+  display: grid;
+  grid-template-rows: var(--grid-head-height);
+  grid-auto-rows: var(--grid-row-height);
+  align-content: start;
+  min-height: calc(var(--grid-head-height) + var(--min-rows) * var(--grid-row-height) + 2px);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.grid-row {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.grid-head {
+  background: var(--color-bg);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.grid-cell {
+  min-width: 0;
+  padding-inline: var(--space-4);
+}
+
+.grid-placeholder {
+  grid-row: span var(--min-rows);
+  border-bottom: 0;
+}
+
+.grid-placeholder-cell {
+  display: grid;
+  grid-column: 1 / -1;
+  place-items: center;
+  height: 100%;
+}
+
+.cards {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cards-placeholder {
+  display: grid;
+  place-items: center;
+  min-height: 16rem;
+}
+
+.default-card {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+
+  dd {
+    margin: 0;
+  }
+}
+
+.cell-text {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cell-strong {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.cell-muted {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}

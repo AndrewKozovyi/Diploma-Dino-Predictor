@@ -1,0 +1,94 @@
+@use 'styles/mixins';
+
+:host {
+  display: grid;
+  align-content: start;
+  gap: var(--space-5);
+}
+
+.head {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-2);
+}
+
+.eyebrow {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-accent-strong);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.name {
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  overflow-wrap: anywhere;
+}
+
+.score {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+
+.percent {
+  font-family: var(--font-display);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+}
+
+app-confidence-meter {
+  width: 100%;
+}
+
+.subheading {
+  margin-bottom: var(--space-3);
+  color: var(--color-text-muted);
+}
+
+.candidates {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.candidate {
+  display: grid;
+  grid-template-columns: 1.75rem minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-1) var(--space-2);
+
+  @include mixins.respond-to(xs) {
+    grid-template-columns: 1.75rem minmax(0, 1fr) minmax(0, 1.2fr);
+  }
+}
+
+.rank {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--radius-full);
+  background: var(--color-accent-tint);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-accent-strong);
+}
+
+.candidate-name {
+  overflow: hidden;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.candidate-meter {
+  grid-column: 2;
+
+  @include mixins.respond-to(xs) {
+    grid-column: auto;
+  }
+}

@@ -1,0 +1,22 @@
+.prediction-card {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-3);
+}
+
+.name {
+  font-size: var(--font-size-lg);
+}
+
+.file {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -1,0 +1,19 @@
+<div class="switcher" role="radiogroup" [attr.aria-label]="label()" [style.--active-index]="activeIndex()">
+  <span class="thumb" aria-hidden="true"></span>
+  @for (option of options(); track $index; let index = $index) {
+    <button
+      #option
+      class="option"
+      type="button"
+      role="radio"
+      [class.option-active]="index === activeIndex()"
+      [attr.aria-checked]="index === activeIndex()"
+      [attr.tabindex]="index === activeIndex() ? 0 : -1"
+      [attr.title]="option.title"
+      [attr.aria-label]="option.title"
+      (keydown)="onKeydown($event)"
+    >
+      {{ option.label }}
+    </button>
+  }
+</div>

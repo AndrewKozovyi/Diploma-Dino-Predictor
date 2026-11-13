@@ -1,0 +1,30 @@
+<header class="head">
+  <p class="eyebrow">{{ 'prediction.mostLikely' | t }}</p>
+  <h2 class="name">{{ top().dinoType.name }}</h2>
+  <p class="score">
+    <span class="percent">{{ top().probability | localPercent }}</span>
+    <span class="hint">{{ 'prediction.confidence' | t }}</span>
+  </p>
+  <app-confidence-meter [value]="top().probability" [showValue]="false" />
+  @if (unsure()) {
+    <p class="badge badge-warning">
+      <app-icon name="warning" [size]="16" />
+      {{ 'prediction.unsure' | t }}
+    </p>
+  }
+</header>
+
+@if (others().length > 0) {
+  <section>
+    <h3 class="subheading">{{ 'prediction.candidates' | t }}</h3>
+    <ol class="candidates">
+      @for (candidate of others(); track candidate.rank) {
+        <li class="candidate">
+          <span class="rank">{{ candidate.rank }}</span>
+          <span class="candidate-name">{{ candidate.dinoType.name }}</span>
+          <app-confidence-meter class="candidate-meter" [value]="candidate.probability" />
+        </li>
+      }
+    </ol>
+  </section>
+}
