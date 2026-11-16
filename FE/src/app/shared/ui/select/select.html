@@ -1,4 +1,4 @@
-<div class="field" (focusout)="close()">
+<div class="field" [class.field-inline]="layout() === 'inline'" (focusout)="close()">
   <span [id]="id + '-label'">{{ label() }}</span>
   <div class="select">
     <button

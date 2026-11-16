@@ -10,6 +10,7 @@ builder.Services.AddRequestLanguages();
 builder.Services.AddFrontendCors(builder.Configuration);
 builder.Services.AddImageStorage();
 builder.Services.AddScoped<IPredictionsService, PredictionsService>();
+builder.Services.AddScoped<IDinoTypesService, DinoTypesService>();
 
 var app = builder.Build();
 

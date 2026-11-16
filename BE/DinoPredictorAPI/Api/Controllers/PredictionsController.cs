@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 
 namespace DinoPredictorAPI.Api;
 
@@ -7,8 +8,13 @@ namespace DinoPredictorAPI.Api;
 public sealed class PredictionsController(IPredictionsService predictions) : ControllerBase, IPredictionsController
 {
     [HttpGet]
-    [SafeEnableQuery(AllowedOrderByProperties = "CreatedAt,Probability")]
-    public IQueryable<PredictionSummaryDto> GetSummaries() => predictions.GetSummaries();
+    public Task<PageDto<PredictionSummaryDto>> GetSummaries(
+        ODataQueryOptions<PredictionSummaryDto> query,
+        CancellationToken ct
+    )
+    {
+        return predictions.GetSummaries(query, ct);
+    }
 
     [HttpGet("{id:guid}")]
     public Task<PredictionDetailsDto> GetById(Guid id, CancellationToken ct) => predictions.GetByIdAsync(id, ct);

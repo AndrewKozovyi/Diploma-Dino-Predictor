@@ -30,6 +30,7 @@ export class Select<T> {
   readonly label = input.required<string>();
   readonly options = input.required<readonly SelectOption<T>[]>();
   readonly placeholder = input<string>();
+  readonly layout = input<'stacked' | 'inline'>('stacked');
   readonly value = model<T | null>(null);
 
   private readonly trigger = viewChild.required<ElementRef<HTMLButtonElement>>('trigger');

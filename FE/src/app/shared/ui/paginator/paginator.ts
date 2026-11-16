@@ -17,7 +17,7 @@ export class Paginator {
   readonly pageSize = input.required<number>();
   readonly totalCount = input.required<number>();
 
-  protected readonly totalPages = computed(() => Math.ceil(this.totalCount() / this.pageSize()));
+  protected readonly totalPages = computed(() => Math.max(1, Math.ceil(this.totalCount() / this.pageSize())));
 
   protected readonly pages = computed(() => {
     const last = this.totalPages();

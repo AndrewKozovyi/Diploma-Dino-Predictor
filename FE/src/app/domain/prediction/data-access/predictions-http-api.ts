@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import type { PredictionDetails, PredictionSummary } from '../../../interfaces/domain/prediction';
+import type { Page } from '../../../interfaces/shared/page';
 import { PredictionsApi } from './predictions-api';
 
 const RESOURCE = 'Predictions';
@@ -15,8 +16,8 @@ export class PredictionsHttpApi extends PredictionsApi {
     return this.http.post<PredictionDetails>(RESOURCE, body);
   }
 
-  getAll(params: HttpParams): Observable<PredictionSummary[]> {
-    return this.http.get<PredictionSummary[]>(RESOURCE, { params });
+  getAll(params: HttpParams): Observable<Page<PredictionSummary>> {
+    return this.http.get<Page<PredictionSummary>>(RESOURCE, { params });
   }
 
   getById(id: string): Observable<PredictionDetails> {

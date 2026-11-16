@@ -8,6 +8,16 @@
   }
 </ng-template>
 
+@if (usePagination()) {
+  <app-grid-pagination
+    [(page)]="page"
+    [(pageSize)]="pageSize"
+    [pageSizes]="pageSizes()"
+    [totalCount]="totalCount()"
+    [shownCount]="rows().length"
+  />
+}
+
 @if (cards()) {
   @if (table().length > 0) {
     <ul class="cards" [attr.aria-label]="label()">
@@ -41,7 +51,28 @@
   >
     <div class="grid-row grid-head" role="row">
       @for (column of columns(); track $index) {
-        <span class="grid-cell" role="columnheader">{{ column.headerKey | t }}</span>
+        <div
+          class="grid-cell"
+          role="columnheader"
+          [class.grid-cell-sortable]="column.sortKey"
+          [attr.aria-sort]="ariaSort(column)"
+        >
+          @if (column.sortKey; as sortKey) {
+            <button class="sort-button" type="button" (click)="toggleSort(sortKey)">
+              <span class="sort-label">{{ column.headerKey | t }}</span>
+              @if (sort()?.key === sortKey) {
+                <app-icon
+                  class="sort-icon"
+                  name="chevron-down"
+                  [size]="16"
+                  [class.sort-icon-asc]="sort()?.direction === 'asc'"
+                />
+              }
+            </button>
+          } @else {
+            {{ column.headerKey | t }}
+          }
+        </div>
       }
     </div>
     @for (row of table(); track row.key) {

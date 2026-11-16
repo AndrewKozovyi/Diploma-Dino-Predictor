@@ -1,4 +1,6 @@
 using System.Diagnostics;
+using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Query.Validator;
 
 namespace DinoPredictorAPI.Application;
 
@@ -13,14 +15,25 @@ public sealed class PredictionsService(
 {
     private const int MaxFileNameLength = 255;
 
-    public IQueryable<PredictionSummaryDto> GetSummaries()
+    private static readonly ODataValidationSettings SummariesValidation = SafeQuery.Validation(
+        nameof(PredictionSummaryDto.CreatedAt),
+        nameof(PredictionSummaryDto.Probability),
+        nameof(PredictionSummaryDto.DinoType),
+        nameof(DinoTypeDto.Name)
+    );
+
+    public Task<PageDto<PredictionSummaryDto>> GetSummaries(
+        ODataQueryOptions<PredictionSummaryDto> query,
+        CancellationToken ct
+    )
     {
         return db
             .PredictHistoryResults.AsNoTracking()
             .Where(x => x.Rank == 1)
             .Select(PredictionMappings.ToSummary(language.Code))
             .OrderByDescending(p => p.CreatedAt)
-            .ThenByDescending(p => p.Id);
+            .ThenByDescending(p => p.Id)
+            .ToPageAsync(query, SummariesValidation, ct);
     }
 
     public async Task<PredictionDetailsDto> GetByIdAsync(Guid id, CancellationToken ct)

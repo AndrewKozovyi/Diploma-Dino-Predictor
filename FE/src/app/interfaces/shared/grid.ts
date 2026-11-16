@@ -10,6 +10,7 @@ export interface GridComponentCell<T> {
 interface GridColumnBase {
   headerKey: string;
   width?: string;
+  sortKey?: string;
 }
 
 export interface GridTextColumn<T> extends GridColumnBase {

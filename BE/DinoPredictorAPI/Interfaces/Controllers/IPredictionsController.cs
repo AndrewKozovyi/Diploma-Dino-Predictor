@@ -1,10 +1,14 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
 
 namespace DinoPredictorAPI.Interfaces;
 
 public interface IPredictionsController
 {
-    IQueryable<PredictionSummaryDto> GetSummaries();
+    Task<PageDto<PredictionSummaryDto>> GetSummaries(
+        ODataQueryOptions<PredictionSummaryDto> query,
+        CancellationToken ct
+    );
 
     Task<PredictionDetailsDto> GetById(Guid id, CancellationToken ct);
 

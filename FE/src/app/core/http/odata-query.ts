@@ -1,5 +1,7 @@
 import { HttpParams } from '@angular/common/http';
 
+import type { Sort } from '../../interfaces/core/sort';
+
 export type ODataOperator = 'eq' | 'gt' | 'ge' | 'lt' | 'le';
 export type ODataValue = string | number | boolean | Date;
 
@@ -26,6 +28,14 @@ export class ODataQuery {
   filter(field: string, operator: ODataOperator, value?: ODataValue): this {
     if (value !== undefined && value !== '') {
       this.filters.push(`${field} ${operator} ${formatValue(value)}`);
+    }
+
+    return this;
+  }
+
+  orderBy(sort?: Sort): this {
+    if (sort) {
+      this.params = this.params.set('$orderby', `${sort.key} ${sort.direction}`);
     }
 
     return this;

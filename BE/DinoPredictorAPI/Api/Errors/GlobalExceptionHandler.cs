@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OData;
 
 namespace DinoPredictorAPI.Api;
 
@@ -29,6 +30,13 @@ public sealed partial class GlobalExceptionHandler(
                 Title = "Prediction not found",
                 Detail = exception.Message,
                 Extensions = { ["code"] = PredictionNotFoundException.Code },
+            },
+            ODataException => new ProblemDetails
+            {
+                Status = StatusCodes.Status400BadRequest,
+                Title = "Invalid query",
+                Detail = exception.Message,
+                Extensions = { ["code"] = "InvalidQuery" },
             },
             _ => new ProblemDetails
             {

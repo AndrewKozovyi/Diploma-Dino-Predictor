@@ -31,6 +31,6 @@ export class Home {
     params: () => this.i18n.language(),
     stream: () => this.predictions.getAll({ top: RECENT_COUNT }),
   });
-  protected readonly recentItems = computed(() => (this.recent.hasValue() ? this.recent.value() : []));
+  protected readonly recentItems = computed(() => (this.recent.hasValue() ? this.recent.value().items : []));
   protected readonly trackById = (prediction: PredictionSummary): string => prediction.id;
 }

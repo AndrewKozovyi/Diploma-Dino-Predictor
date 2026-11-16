@@ -1,1 +1,63 @@
-<h1>{{ 'history.heading' | t }}</h1>
+<header class="head">
+  <h1>{{ 'history.heading' | t }}</h1>
+  <p class="hint">{{ 'history.description' | t }}</p>
+</header>
+
+<section class="card filters" [attr.aria-label]="'history.filters.label' | t">
+  <app-select
+    [label]="'history.filters.type' | t"
+    [options]="typeOptions()"
+    [value]="type() ?? null"
+    (valueChange)="filter('type', $event)"
+  />
+  <app-date-input
+    [label]="'history.filters.from' | t"
+    [value]="from() ?? null"
+    (valueChange)="filter('from', $event)"
+  />
+  <app-date-input [label]="'history.filters.to' | t" [value]="to() ?? null" (valueChange)="filter('to', $event)" />
+  <button class="btn btn-secondary" type="button" [disabled]="!filtered()" (click)="reset()">
+    {{ 'history.filters.reset' | t }}
+  </button>
+</section>
+
+<section class="results" aria-labelledby="results-title">
+  <h2 id="results-title" class="visually-hidden">{{ 'history.heading' | t }}</h2>
+  <app-data-grid
+    [rows]="items()"
+    [columns]="grid.columns"
+    [card]="grid.card"
+    [trackBy]="trackById"
+    [minRows]="minRows"
+    [label]="'history.heading' | t"
+    usePagination
+    [page]="page()"
+    [pageSize]="size()"
+    [pageSizes]="pageSizes"
+    [totalCount]="results.hasValue() ? count() : null"
+    (pageChange)="goToPage($event)"
+    (pageSizeChange)="setPageSize($event)"
+    [sort]="currentSort()"
+    (sortChange)="setSort($event)"
+  >
+    @if (results.isLoading()) {
+      <app-dino-loader />
+    } @else if (results.error()) {
+      <app-empty-state icon="error" [heading]="'history.error' | t">
+        <button class="btn btn-secondary" type="button" (click)="results.reload()">{{ 'common.retry' | t }}</button>
+      </app-empty-state>
+    } @else if (filtered()) {
+      <app-empty-state icon="info" [heading]="'history.notFound.heading' | t">
+        <button class="btn btn-secondary" type="button" (click)="reset()">{{ 'history.filters.reset' | t }}</button>
+      </app-empty-state>
+    } @else {
+      <app-empty-state
+        icon="image"
+        [heading]="'history.empty.heading' | t"
+        [description]="'history.empty.description' | t"
+      >
+        <a class="btn btn-primary" routerLink="/">{{ 'history.empty.action' | t }}</a>
+      </app-empty-state>
+    }
+  </app-data-grid>
+</section>

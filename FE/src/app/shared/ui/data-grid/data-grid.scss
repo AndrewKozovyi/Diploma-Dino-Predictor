@@ -1,8 +1,11 @@
+@use 'styles/variables';
+
 :host {
   --grid-head-height: 2.75rem;
   --grid-row-height: 3.25rem;
 
-  display: block;
+  display: grid;
+  gap: var(--space-3);
 }
 
 .grid {
@@ -33,9 +36,50 @@
   color: var(--color-text-muted);
 }
 
+.sort-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  width: 100%;
+  height: 100%;
+  padding: 0 var(--space-4);
+  border: 0;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+
+  &:focus-visible {
+    outline-offset: -2px;
+  }
+}
+
+.sort-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sort-icon {
+  flex-shrink: 0;
+  color: var(--color-accent-strong);
+  transition: transform variables.$duration-fast;
+}
+
+.sort-icon-asc {
+  transform: rotate(180deg);
+}
+
 .grid-cell {
   min-width: 0;
   padding-inline: var(--space-4);
+}
+
+.grid-cell-sortable {
+  align-self: stretch;
+  padding: 0;
 }
 
 .grid-placeholder {

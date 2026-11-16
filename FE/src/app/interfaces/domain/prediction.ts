@@ -1,3 +1,5 @@
+import type { Sort } from '../core/sort';
+
 export interface DinoType {
   code: string;
   name: string;
@@ -34,4 +36,5 @@ export interface PredictionQuery {
   dinoTypeCode?: string;
   from?: string;
   to?: string;
+  sort?: Sort;
 }

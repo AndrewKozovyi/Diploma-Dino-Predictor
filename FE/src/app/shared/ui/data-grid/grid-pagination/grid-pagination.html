@@ -1,0 +1,15 @@
+<p class="summary" aria-live="polite">
+  @if (totalCount() !== null) {
+    {{ shownCount() > 0 ? ('dataGrid.range' | t: range()) : ('dataGrid.found' | t: { count: 0 }) }}
+  }
+</p>
+<div class="controls">
+  <app-select
+    layout="inline"
+    [label]="'dataGrid.pageSize' | t"
+    [options]="sizeOptions()"
+    [value]="pageSize()"
+    (valueChange)="setPageSize($event)"
+  />
+  <app-paginator [(page)]="page" [pageSize]="pageSize()" [totalCount]="totalCount() ?? 0" />
+</div>

@@ -21,6 +21,7 @@ import { acceptLanguageInterceptor } from './core/http/accept-language.intercept
 import { apiUrlInterceptor } from './core/http/api-url.interceptor';
 import { errorInterceptor } from './core/http/error.interceptor';
 import { provideI18n } from './core/i18n/provide-i18n';
+import { provideDinoTypesApi } from './domain/dino-type/data-access/provide-dino-types-api';
 import { providePredictionsApi } from './domain/prediction/data-access/provide-predictions-api';
 
 export const appConfig: ApplicationConfig = {
@@ -39,5 +40,6 @@ export const appConfig: ApplicationConfig = {
     { provide: APP_CONFIG, useValue: environment },
     provideI18n(),
     providePredictionsApi(),
+    provideDinoTypesApi(),
   ],
 };
