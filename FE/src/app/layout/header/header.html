@@ -1,3 +1,41 @@
+<ng-template #links>
+  <a
+    class="nav-link"
+    routerLink="/"
+    routerLinkActive="nav-link-active"
+    ariaCurrentWhenActive="page"
+    [routerLinkActiveOptions]="{ exact: true }"
+    (click)="closeDrawer()"
+  >
+    <app-icon class="nav-link-icon" name="home" [size]="18" />
+    {{ 'nav.home' | t }}
+  </a>
+  <a
+    class="nav-link"
+    routerLink="/history"
+    routerLinkActive="nav-link-active"
+    ariaCurrentWhenActive="page"
+    (click)="closeDrawer()"
+  >
+    <app-icon class="nav-link-icon" name="history" [size]="18" />
+    {{ 'nav.history' | t }}
+  </a>
+</ng-template>
+
+<ng-template #drawer>
+  <div class="drawer" [class.drawer-closing]="drawerClosing()" (animationend)="finishClosing()">
+    <div class="drawer-head">
+      <h2 class="drawer-title" [id]="drawerTitleId">{{ 'nav.menu' | t }}</h2>
+      <button class="btn-icon" type="button" [attr.aria-label]="'common.close' | t" (click)="closeDrawer()">
+        <app-icon name="close" />
+      </button>
+    </div>
+    <nav class="drawer-links" [attr.aria-label]="'nav.label' | t">
+      <ng-container *ngTemplateOutlet="links" />
+    </nav>
+  </div>
+</ng-template>
+
 <header class="header">
   <div class="header-inner">
     <a class="brand" routerLink="/">
@@ -5,23 +43,23 @@
       <span class="brand-name">Dino Predictor</span>
     </a>
     <div class="header-actions">
-      <nav class="nav" [attr.aria-label]="'nav.label' | t">
-        <a
-          class="nav-link"
-          routerLink="/"
-          routerLinkActive="nav-link-active"
-          ariaCurrentWhenActive="page"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
-          <app-icon class="nav-link-icon" name="home" [size]="18" />
-          {{ 'nav.home' | t }}
-        </a>
-        <a class="nav-link" routerLink="/history" routerLinkActive="nav-link-active" ariaCurrentWhenActive="page">
-          <app-icon class="nav-link-icon" name="history" [size]="18" />
-          {{ 'nav.history' | t }}
-        </a>
-      </nav>
+      @if (!mobile()) {
+        <nav class="nav" [attr.aria-label]="'nav.label' | t">
+          <ng-container *ngTemplateOutlet="links" />
+        </nav>
+      }
       <app-language-switcher />
+      @if (mobile()) {
+        <button
+          class="btn-icon"
+          type="button"
+          aria-haspopup="dialog"
+          [attr.aria-label]="'nav.open' | t"
+          (click)="openDrawer(drawer)"
+        >
+          <app-icon name="menu" />
+        </button>
+      }
     </div>
   </div>
 </header>

@@ -68,6 +68,8 @@
   "nav.history": "History",
   "nav.home": "Home",
   "nav.label": "Main navigation",
+  "nav.menu": "Menu",
+  "nav.open": "Open menu",
   "paginator.label": "Pagination",
   "paginator.next": "Next page",
   "paginator.previous": "Previous page",

@@ -13,6 +13,7 @@ export const ICONS = {
   home: 'icon-home',
   image: 'icon-image',
   info: 'icon-info',
+  menu: 'icon-menu',
   success: 'icon-success',
   upload: 'icon-upload',
   warning: 'icon-warning',
