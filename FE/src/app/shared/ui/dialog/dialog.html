@@ -1,20 +1,9 @@
-<dialog
-  #dialog
-  aria-labelledby="dialog-title"
-  tabindex="-1"
-  (click)="closeOnBackdrop($event)"
-  (keydown.escape)="open.set(false)"
-  (close)="open.set(false)"
->
-  <div class="dialog-panel">
-    <header class="dialog-header">
-      <h2 id="dialog-title">{{ heading() }}</h2>
-      <button class="btn-icon" type="button" [attr.aria-label]="'common.close' | t" (click)="open.set(false)">
-        <app-icon name="close" />
-      </button>
-    </header>
-    <div class="dialog-body">
-      <ng-content />
-    </div>
-  </div>
-</dialog>
+<header class="dialog-header">
+  <h2 [id]="titleId">{{ heading() }}</h2>
+  <button class="btn-icon" type="button" [attr.aria-label]="'common.close' | t" (click)="ref.close()">
+    <app-icon name="close" />
+  </button>
+</header>
+<div class="dialog-body">
+  <ng-content />
+</div>

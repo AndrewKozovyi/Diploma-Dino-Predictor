@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal, type TemplateRef } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
 
@@ -8,6 +8,7 @@ import type { FileRejection } from '../../interfaces/shared/file-rejection';
 import type { SelectOption } from '../../interfaces/shared/select-option';
 import { DateInput } from '../../shared/ui/date-input/date-input';
 import { Dialog } from '../../shared/ui/dialog/dialog';
+import { DialogService } from '../../shared/ui/dialog/dialog.service';
 import { DinoLoader } from '../../shared/ui/dino-loader/dino-loader';
 import { EmptyState } from '../../shared/ui/empty-state/empty-state';
 import { FileDrop } from '../../shared/ui/file-drop/file-drop';
@@ -24,6 +25,7 @@ import { Select } from '../../shared/ui/select/select';
 })
 export class UiTest {
   private readonly http = inject(HttpClient);
+  private readonly dialog = inject(DialogService);
 
   protected readonly notifications = inject(NotificationService);
   protected readonly icons = ICON_NAMES;
@@ -65,7 +67,6 @@ export class UiTest {
 
   protected readonly selectedSpecies = signal<string | null>(null);
   protected readonly selectedDate = signal<string | null>(null);
-  protected readonly dialogOpen = signal(false);
   protected readonly page = signal(5);
   protected readonly file = signal<File | null>(null);
   protected readonly rejection = signal<FileRejection | null>(null);
@@ -82,5 +83,9 @@ export class UiTest {
         next: (items) => this.apiResult.set(`Received ${items.length} records.`),
         error: () => this.apiResult.set('The request failed.'),
       });
+  }
+
+  protected openDialog(template: TemplateRef<unknown>): void {
+    this.dialog.open(template);
   }
 }

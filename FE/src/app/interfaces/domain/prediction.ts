@@ -38,3 +38,7 @@ export interface PredictionQuery {
   to?: string;
   sort?: Sort;
 }
+
+export interface PredictionDialogData {
+  predictionId: string;
+}

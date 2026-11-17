@@ -1,0 +1,16 @@
+<app-dialog [heading]="'prediction.details' | t">
+  @if (prediction.hasValue()) {
+    @let details = prediction.value();
+    <div class="details">
+      <app-prediction-images [imageUrl]="details.imageUrl" [camImageUrl]="details.camImageUrl" />
+      <app-prediction-overview [candidates]="details.candidates" />
+      <app-prediction-meta class="meta" [prediction]="details" />
+    </div>
+  } @else if (prediction.error()) {
+    <app-empty-state icon="error" [heading]="'prediction.loadError' | t">
+      <button class="btn btn-secondary" type="button" (click)="prediction.reload()">{{ 'common.retry' | t }}</button>
+    </app-empty-state>
+  } @else {
+    <app-dino-loader class="loader" />
+  }
+</app-dialog>

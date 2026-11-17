@@ -82,6 +82,18 @@
   padding: 0;
 }
 
+.row-selectable {
+  cursor: pointer;
+
+  &:focus-visible {
+    outline-offset: -2px;
+  }
+}
+
+.grid-row.row-selectable:hover {
+  background: var(--color-accent-tint);
+}
+
 .grid-placeholder {
   grid-row: span var(--min-rows);
   border-bottom: 0;

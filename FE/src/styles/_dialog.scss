@@ -1,0 +1,10 @@
+@use '@angular/cdk';
+@include cdk.overlay;
+
+.dialog-backdrop {
+  background: var(--color-backdrop);
+}
+
+.cdk-dialog-container {
+  outline: none;
+}

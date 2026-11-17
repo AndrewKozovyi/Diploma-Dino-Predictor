@@ -39,6 +39,8 @@
     (pageSizeChange)="setPageSize($event)"
     [sort]="currentSort()"
     (sortChange)="setSort($event)"
+    selectable
+    (rowSelect)="openDetails($event)"
   >
     @if (results.isLoading()) {
       <app-dino-loader />

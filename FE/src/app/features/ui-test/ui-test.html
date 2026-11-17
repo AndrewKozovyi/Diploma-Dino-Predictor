@@ -108,11 +108,13 @@
   <section class="card section">
     <h2>Dialog</h2>
     <div class="row">
-      <button class="btn btn-primary" type="button" (click)="dialogOpen.set(true)">Open</button>
+      <button class="btn btn-primary" type="button" (click)="openDialog(demoDialog)">Open</button>
     </div>
-    <app-dialog heading="Tyrannosaurus" [(open)]="dialogOpen">
-      <p>Closes with the cross, Esc, or a click outside. Takes the full screen on mobile.</p>
-    </app-dialog>
+    <ng-template #demoDialog>
+      <app-dialog heading="Tyrannosaurus">
+        <p>Closes with the cross, Esc, or a click outside. Takes the full screen on mobile.</p>
+      </app-dialog>
+    </ng-template>
   </section>
 
   <section class="card section">

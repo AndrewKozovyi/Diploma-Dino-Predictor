@@ -32,7 +32,8 @@ export interface GridCell {
   inputs?: Record<string, unknown>;
 }
 
-export interface GridRow {
+export interface GridRow<T> {
+  row: T;
   key: unknown;
   cells: GridCell[];
   card?: GridCell;

@@ -1,5 +1,5 @@
 import { NgComponentOutlet, NgTemplateOutlet } from '@angular/common';
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input, model } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input, model, output } from '@angular/core';
 
 import { TranslatePipe } from '../../../core/i18n/translate.pipe';
 import type { Sort } from '../../../interfaces/core/sort';
@@ -37,6 +37,8 @@ export class DataGrid<T> {
   readonly pageSizes = input<readonly number[]>(DEFAULT_PAGE_SIZES);
   readonly totalCount = input<number | null>(null);
   readonly sort = model<Sort | null>(null);
+  readonly selectable = input(false, { transform: booleanAttribute });
+  readonly rowSelect = output<T>();
 
   protected readonly cards = mediaQuery(CARDS_QUERY);
   protected readonly tracks = computed(() =>
@@ -44,15 +46,23 @@ export class DataGrid<T> {
       .map((column) => column.width ?? DEFAULT_WIDTH)
       .join(' '),
   );
-  protected readonly table = computed<GridRow[]>(() => {
+  protected readonly table = computed<GridRow<T>[]>(() => {
     const card = this.card();
 
     return this.rows().map((row) => ({
+      row,
       key: this.trackBy()(row),
       cells: this.columns().map((column) => toCell(column, row)),
       card: card && { component: card.component, inputs: card.inputs(row) },
     }));
   });
+
+  protected select(row: T, event?: Event): void {
+    if (this.selectable()) {
+      event?.preventDefault();
+      this.rowSelect.emit(row);
+    }
+  }
 
   protected ariaSort(column: GridColumn<T>): string | null {
     if (!column.sortKey) {

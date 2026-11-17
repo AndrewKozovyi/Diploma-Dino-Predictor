@@ -22,7 +22,13 @@
   @if (table().length > 0) {
     <ul class="cards" [attr.aria-label]="label()">
       @for (row of table(); track row.key) {
-        <li>
+        <li
+          [class.row-selectable]="selectable()"
+          [attr.tabindex]="selectable() ? 0 : null"
+          (click)="select(row.row)"
+          (keydown.enter)="select(row.row)"
+          (keydown.space)="select(row.row, $event)"
+        >
           @if (row.card; as card) {
             <ng-container *ngTemplateOutlet="cellContent; context: { $implicit: card }" />
           } @else {
@@ -76,7 +82,15 @@
       }
     </div>
     @for (row of table(); track row.key) {
-      <div class="grid-row" role="row">
+      <div
+        class="grid-row"
+        role="row"
+        [class.row-selectable]="selectable()"
+        [attr.tabindex]="selectable() ? 0 : null"
+        (click)="select(row.row)"
+        (keydown.enter)="select(row.row)"
+        (keydown.space)="select(row.row, $event)"
+      >
         @for (cell of row.cells; track $index) {
           <div class="grid-cell" role="cell">
             <ng-container *ngTemplateOutlet="cellContent; context: { $implicit: cell }" />

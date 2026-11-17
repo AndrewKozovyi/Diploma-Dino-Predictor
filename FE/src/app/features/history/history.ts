@@ -1,4 +1,15 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, input, untracked } from '@angular/core';
+import type { DialogRef } from '@angular/cdk/dialog';
+import { Location } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  DestroyRef,
+  effect,
+  inject,
+  input,
+  untracked,
+} from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
 
@@ -6,11 +17,13 @@ import { I18nService } from '../../core/i18n/i18n.service';
 import { TranslatePipe } from '../../core/i18n/translate.pipe';
 import { DinoTypesService } from '../../domain/dino-type/data-access/dino-types.service';
 import { PredictionsService } from '../../domain/prediction/data-access/predictions.service';
+import { PredictionDetailsDialog } from '../../domain/prediction/ui/prediction-details-dialog/prediction-details-dialog';
 import type { Sort } from '../../interfaces/core/sort';
 import type { PredictionSummary } from '../../interfaces/domain/prediction';
 import type { SelectOption } from '../../interfaces/shared/select-option';
 import { DataGrid } from '../../shared/ui/data-grid/data-grid';
 import { DateInput } from '../../shared/ui/date-input/date-input';
+import { DialogService } from '../../shared/ui/dialog/dialog.service';
 import { DinoLoader } from '../../shared/ui/dino-loader/dino-loader';
 import { EmptyState } from '../../shared/ui/empty-state/empty-state';
 import { Select } from '../../shared/ui/select/select';
@@ -21,7 +34,7 @@ const DEFAULT_PAGE_SIZE = 25;
 const MIN_ROWS = 10;
 const DEFAULT_SORT: Sort = { key: 'CreatedAt', direction: 'desc' };
 
-type HistoryParam = 'type' | 'from' | 'to' | 'page' | 'size' | 'sort' | 'order';
+type HistoryParam = 'type' | 'from' | 'to' | 'page' | 'size' | 'sort' | 'order' | 'prediction';
 
 const toPage = (value: string | undefined): number => Math.max(1, Math.trunc(Number(value)) || 1);
 const toPageSize = (value: string | undefined): number =>
@@ -42,11 +55,16 @@ export class History {
   readonly size = input(DEFAULT_PAGE_SIZE, { transform: toPageSize });
   readonly sort = input<string>();
   readonly order = input<string>();
+  readonly prediction = input<string>();
 
   private readonly router = inject(Router);
+  private readonly location = inject(Location);
   private readonly i18n = inject(I18nService);
   private readonly predictions = inject(PredictionsService);
   private readonly dinoTypes = inject(DinoTypesService);
+  private readonly dialog = inject(DialogService);
+  private openedHere = false;
+  private details: { id: string; ref: DialogRef<unknown, PredictionDetailsDialog> } | null = null;
 
   protected readonly minRows = MIN_ROWS;
   protected readonly grid = injectHistoryGrid();
@@ -90,6 +108,12 @@ export class History {
 
   constructor() {
     effect(() => {
+      const id = this.prediction();
+
+      untracked(() => this.syncDetails(id));
+    });
+    inject(DestroyRef).onDestroy(() => this.syncDetails(undefined));
+    effect(() => {
       const lastPage = Math.max(1, Math.ceil(this.count() / this.size()));
 
       if (this.results.hasValue() && this.page() > lastPage) {
@@ -98,7 +122,21 @@ export class History {
     });
   }
 
-  protected filter(param: Exclude<HistoryParam, 'page' | 'size'>, value: string | null): void {
+  protected openDetails(prediction: PredictionSummary): void {
+    this.openedHere = true;
+    this.navigate({ prediction: prediction.id });
+  }
+
+  protected closeDetails(): void {
+    if (this.openedHere) {
+      this.openedHere = false;
+      this.location.back();
+    } else {
+      this.navigate({ prediction: null }, true);
+    }
+  }
+
+  protected filter(param: Exclude<HistoryParam, 'page' | 'size' | 'prediction'>, value: string | null): void {
     this.navigate({ [param]: value, page: null });
   }
 
@@ -118,6 +156,27 @@ export class History {
 
   protected reset(): void {
     this.navigate({ type: null, from: null, to: null, page: null });
+  }
+
+  private syncDetails(id: string | undefined): void {
+    if (this.details?.id === id) {
+      return;
+    }
+
+    const current = this.details;
+    this.details = null;
+    current?.ref.close();
+
+    if (id) {
+      const ref = this.dialog.open(PredictionDetailsDialog, { data: { predictionId: id }, closeOnNavigation: false });
+      this.details = { id, ref };
+      ref.closed.subscribe(() => {
+        if (this.details?.ref === ref) {
+          this.details = null;
+          this.closeDetails();
+        }
+      });
+    }
   }
 
   private isDefaultSort(sort: Sort): boolean {
